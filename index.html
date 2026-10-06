@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aissa Ammouri | Portfolio & Story</title>
+  <meta name="description" content="Portfolio of Aissa Ammouri - Master's Student in Business Administration, English Graduate, and Modern Farmer from Alnif, Morocco.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+  <!-- Interactive Canvas Background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#slide-1" class="brand-logo" data-slide="1">
+        <span class="logo-badge">AA</span>
+        <span class="logo-text">AISSA<span class="highlight">.</span>AMMOURI</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#slide-1" class="nav-link active" data-slide="1">Home</a>
+        <a href="#slide-2" class="nav-link" data-slide="2">About</a>
+        <a href="#slide-3" class="nav-link" data-slide="3">Education</a>
+        <a href="#slide-4" class="nav-link" data-slide="4">Agriculture</a>
+        <a href="#slide-5" class="nav-link" data-slide="5">Skills</a>
+        <a href="#slide-6" class="nav-link" data-slide="6">Interests</a>
+        <a href="#slide-7" class="nav-link" data-slide="7">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="audio-toggle" class="icon-btn" title="Toggle Ambient Audio Experience" aria-label="Toggle Sound">
+          <i class="fa-solid fa-volume-xmark"></i>
+        </button>
+        <button id="mobile-menu-btn" class="icon-btn mobile-only" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Side Dot Indicators -->
+  <div class="slide-indicator" id="slide-indicator">
+    <button class="dot active" data-slide="1" title="Hero / Welcome"><span class="dot-label">01 Hero</span></button>
+    <button class="dot" data-slide="2" title="About & Profile"><span class="dot-label">02 About</span></button>
+    <button class="dot" data-slide="3" title="Education"><span class="dot-label">03 Education</span></button>
+    <button class="dot" data-slide="4" title="Work & Agriculture"><span class="dot-label">04 Agriculture</span></button>
+    <button class="dot" data-slide="5" title="Languages & Skills"><span class="dot-label">05 Skills</span></button>
+    <button class="dot" data-slide="6" title="Interests & Hobbies"><span class="dot-label">06 Interests</span></button>
+    <button class="dot" data-slide="7" title="Contact & Socials"><span class="dot-label">07 Contact</span></button>
+  </div>
+
+  <!-- Slide Deck Container -->
+  <main class="slide-deck" id="slide-deck">
+
+    <!-- SLIDE 1: HERO -->
+    <section class="slide active" id="slide-1" data-index="1">
+      <div class="slide-content hero-content">
+        <div class="hero-grid">
+          <div class="hero-text-side">
+            <div class="status-badge glowing-border">
+              <span class="status-dot"></span> Open for Opportunities & Agricultural Innovation
+            </div>
+            <h1 class="hero-name">AISSA <span class="gradient-text">AMMOURI</span></h1>
+            <div class="typing-container">
+              <span class="static-prefix">I am a&nbsp;</span>
+              <span class="typing-text" id="typing-text"></span>
+              <span class="cursor">|</span>
+            </div>
+            <p class="hero-description">
+              Bridging modern business analytics with sustainable agricultural stewardship. A 21-year-old visionary from Alnif, Morocco, synthesizing strategic management, global communication, and deep-rooted agrarian passion.
+            </p>
+            <div class="hero-cta-group">
+              <button class="btn btn-primary goto-btn" data-slide="2">
+                <span>Explore My Journey</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+              <button class="btn btn-outline goto-btn" data-slide="7">
+                <span>Get In Touch</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+            <div class="hero-stats">
+              <div class="stat-card">
+                <span class="stat-number" data-target="500">500+</span>
+                <span class="stat-label">Trees Cultivated</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">4</span>
+                <span class="stat-label">Languages Spoken</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">2023</span>
+                <span class="stat-label">Graduation Year</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-image-side">
+            <div class="profile-card-wrapper">
+              <div class="profile-card-bg-glow"></div>
+              <div class="profile-card">
+                <div class="profile-avatar-container">
+                  <!-- Custom Profile Visual & Image Holder -->
+                  <div class="avatar-frame">
+                    <div class="avatar-glow"></div>
+                    <div class="avatar-inner">
+                     <img src="aissapic.jpeg" alt="Aissa Profile Picture" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                      </svg>
+                      <div class="avatar-badge">
+                        <i class="fa-solid fa-leaf"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="profile-details">
+                  <h3 class="profile-title">Aissa Ammouri</h3>
+                  <p class="profile-subtitle"><i class="fa-solid fa-location-dot"></i> Alnif, Drâa-Tafilalet, Morocco</p>
+                  <div class="profile-pills">
+                    <span class="pill"><i class="fa-solid fa-briefcase"></i> M.A. Business Admin</span>
+                    <span class="pill"><i class="fa-solid fa-graduation-cap"></i> B.A. English</span>
+                    <span class="pill"><i class="fa-solid fa-seedling"></i> Modern Farmer</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: ABOUT ME & PROFILE -->
+    <section class="slide" id="slide-2" data-index="2">
+      <div class="slide-content">
+        <div class="section-header">
+          <span class="section-subtitle">WHO I AM</span>
+          <h2 class="section-title">About <span class="gradient-text">Aissa Ammouri</span></h2>
+          <div class="section-bar"></div>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card main-bio-card glass-panel">
+            <div class="card-icon"><i class="fa-solid fa-user-gear"></i></div>
+            <h3>Multifaceted Mindset & Principles</h3>
+            <p class="bio-lead">
+              At 21 years old, I stand at the intersection of strategic corporate management and hands-on agricultural commitment. 
+            </p>
+            <p class="bio-body">
+              Born and raised in Alnif, within the rugged and majestic Drâa-Tafilalet region, my character was forged by the values of order, responsibility, and relentless drive. I believe that true success stems from a harmonized balance: leveraging analytical business models to streamline real-world challenges while remaining grounded in nature and practical craftsmanship.
+            </p>
+            <p class="bio-body">
+              Whether analyzing financial systems for my Master’s degree or optimizing water efficiency and yield across our 500-tree family farm, I bring unwavering structure, methodic organization, and dynamic adaptability to every endeavor.
+            </p>
+          </div>
+
+          <div class="about-side-grid">
+            <div class="trait-card glass-panel">
+              <div class="trait-icon"><i class="fa-solid fa-bullseye"></i></div>
+              <div class="trait-info">
+                <h4>Orderly & Methodical</h4>
+                <p>Structured problem solver who turns chaos into streamlined execution and actionable workflows.</p>
+              </div>
+            </div>
+
+            <div class="trait-card glass-panel">
+              <div class="trait-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="trait-info">
+                <h4>High Responsibility</h4>
+                <p>Committed to stewardship, accountability, and dependable decision-making in high-stakes environments.</p>
+              </div>
+            </div>
+
+            <div class="trait-card glass-panel">
+              <div class="trait-icon"><i class="fa-solid fa-chart-line"></i></div>
+              <div class="trait-info">
+                <h4>Growth & Drive</h4>
+                <p>Relentless passion for continuous self-improvement, global perspective, and innovative business strategy.</p>
+              </div>
+            </div>
+
+            <div class="quick-facts-box glass-panel">
+              <h4><i class="fa-solid fa-circle-info"></i> Key Overview</h4>
+              <ul>
+                <li><strong>Age:</strong> 21 Years Old</li>
+                <li><strong>Hometown:</strong> Alnif, Tinghir Province</li>
+                <li><strong>Core Philosophy:</strong> "Tradition feeds the root, innovation grows the tree."</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: EDUCATION & ACADEMIC BACKGROUND -->
+    <section class="slide" id="slide-3" data-index="3">
+      <div class="slide-content">
+        <div class="section-header">
+          <span class="section-subtitle">ACADEMIC JOURNEY</span>
+          <h2 class="section-title">Education & <span class="gradient-text">Qualifications</span></h2>
+          <div class="section-bar"></div>
+        </div>
+
+        <div class="timeline-container">
+          <div class="timeline-card glass-panel active-step">
+            <div class="timeline-badge"><i class="fa-solid fa-chart-pie"></i></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <span class="timeline-period">Current Enrolment</span>
+                <span class="status-chip active">In Progress</span>
+              </div>
+              <h3 class="timeline-title">Master's Degree in Business Administration (MBA)</h3>
+              <h4 class="timeline-institution"><i class="fa-solid fa-university"></i> Higher Institute / Faculty of Economics & Management</h4>
+              <p class="timeline-text">
+                Focusing on strategic management, modern corporate governance, financial analysis, operational efficiency, and market expansion. Synthesizing theoretical business frameworks with practical enterprise dynamics and agricultural economics.
+              </p>
+              <div class="tag-cloud">
+                <span>Strategic Management</span>
+                <span>Financial Analysis</span>
+                <span>Agribusiness Strategy</span>
+                <span>Operations Optimization</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-card glass-panel">
+            <div class="timeline-badge"><i class="fa-solid fa-book-open-reader"></i></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <span class="timeline-period">Bachelor's Degree</span>
+                <span class="status-chip completed">Completed</span>
+              </div>
+              <h3 class="timeline-title">Bachelor's Degree in English Language & Communication</h3>
+              <h4 class="timeline-institution"><i class="fa-solid fa-university"></i> Faculty of Letters & Human Sciences</h4>
+              <p class="timeline-text">
+                Developed C1 Advanced mastery in cross-cultural communication, discourse analysis, professional writing, public speaking, and linguistic analysis. Mastery of English opens doors to global business, international trade, and inter-cultural negotiation.
+              </p>
+              <div class="tag-cloud">
+                <span>Cross-Cultural Communication</span>
+                <span>Linguistic Analysis</span>
+                <span>Professional Writing</span>
+                <span>Public Speaking</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-card glass-panel">
+            <div class="timeline-badge"><i class="fa-solid fa-award"></i></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <span class="timeline-period">2023</span>
+                <span class="status-chip completed">Graduated</span>
+              </div>
+              <h3 class="timeline-title">High School Baccalaureate Diploma</h3>
+              <h4 class="timeline-institution"><i class="fa-solid fa-school"></i> High School Academy, Tinghir Province</h4>
+              <p class="timeline-text">
+                Graduated with top academic standing in 2023, building a strong foundational knowledge in analytical logic, humanities, mathematics, and critical thinking that set the stage for higher academic pursuits.
+              </p>
+              <div class="tag-cloud">
+                <span>Analytical Thinking</span>
+                <span>Academic Rigor</span>
+                <span>Humanities & Logic</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: WORK EXPERIENCE & AGRICULTURE -->
+    <section class="slide" id="slide-4" data-index="4">
+      <div class="slide-content">
+        <div class="section-header">
+          <span class="section-subtitle">HANDS-ON LEADERSHIP</span>
+          <h2 class="section-title">Work Experience & <span class="gradient-text">Modern Agriculture</span></h2>
+          <div class="section-bar"></div>
+        </div>
+
+        <div class="agri-grid">
+          <div class="agri-main-card glass-panel">
+            <div class="agri-header">
+              <div class="agri-icon"><i class="fa-solid fa-tree"></i></div>
+              <div>
+                <h3>Family Farm Operations & Maintenance Manager</h3>
+                <span class="agri-location"><i class="fa-solid fa-map-pin"></i> Alnif, Tinghir Province (Drâa-Tafilalet)</span>
+              </div>
+            </div>
+
+            <p class="agri-description">
+              Hands-on management and operational leadership of a prominent family farm cultivating approximately <strong>500 trees</strong> (including date palms, olive trees, and fruit crops adapted to the arid climate of southern Morocco).
+            </p>
+
+            <div class="agri-pillars">
+              <div class="pillar-box">
+                <div class="pillar-icon"><i class="fa-solid fa-droplet"></i></div>
+                <h4>Irrigation & Water Efficiency</h4>
+                <p>Implementing smart drip irrigation and seasonal scheduling to maximize yield while preserving vital water resources in oasis ecosystems.</p>
+              </div>
+
+              <div class="pillar-box">
+                <div class="pillar-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+                <h4>Labour & Harvest Coordination</h4>
+                <p>Leading seasonal harvest teams, organizing tree pruning cycles, soil fertilization, pest control, and yield protection.</p>
+              </div>
+
+              <div class="pillar-box">
+                <div class="pillar-icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                <h4>Supply Chain & Market Delivery</h4>
+                <p>Applying business administration concepts to crop inventory, cost optimization, quality selection, and direct regional market distribution.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="agri-side-panel">
+            <div class="quote-card glass-panel">
+              <i class="fa-solid fa-quote-left quote-mark"></i>
+              <p class="quote-text">
+                "Farming in Alnif taught me patience, resilience, and respect for natural cycles. Integrating business strategy into agriculture isn't just about higher profits; it's about sustainable growth and community heritage."
+              </p>
+              <span class="quote-author">— Aissa Ammouri</span>
+            </div>
+
+            <div class="stat-highlights glass-panel">
+              <div class="highlight-item">
+                <div class="hl-number">500+</div>
+                <div class="hl-text">Active Trees Managed</div>
+              </div>
+              <div class="highlight-item">
+                <div class="hl-number">100%</div>
+                <div class="hl-text">Hands-on Commitment</div>
+              </div>
+              <div class="highlight-item">
+                <div class="hl-number">Oasis</div>
+                <div class="hl-text">Sustainable Tech Integration</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: LANGUAGES & SKILLS -->
+    <section class="slide" id="slide-5" data-index="5">
+      <div class="slide-content">
+        <div class="section-header">
+          <span class="section-subtitle">CAPABILITIES & FLUENCY</span>
+          <h2 class="section-title">Languages & <span class="gradient-text">Professional Skills</span></h2>
+          <div class="section-bar"></div>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Languages Column -->
+          <div class="skills-column glass-panel">
+            <h3 class="column-title"><i class="fa-solid fa-language"></i> Language Fluency</h3>
+            
+            <div class="lang-item">
+              <div class="lang-info">
+                <span class="lang-name">Arabic & Tamazight</span>
+                <span class="lang-level">Native / Mother Tongue</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 100%;"></div>
+              </div>
+              <p class="lang-desc">Complete mastery in formal Arabic, regional dialects, and native Amazigh (Tamazight) language and culture.</p>
+            </div>
+
+            <div class="lang-item">
+              <div class="lang-info">
+                <span class="lang-name">English</span>
+                <span class="lang-level">C1 Advanced (Degree Holder)</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 90%;"></div>
+              </div>
+              <p class="lang-desc">Fluent academic, corporate, and conversational communication. Strong editorial and negotiation abilities.</p>
+            </div>
+
+            <div class="lang-item">
+              <div class="lang-info">
+                <span class="lang-name">French</span>
+                <span class="lang-level">B1 Intermediate</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 65%;"></div>
+              </div>
+              <p class="lang-desc">Solid understanding and working ability for professional, administrative, and economic discussions in Morocco.</p>
+            </div>
+          </div>
+
+          <!-- Professional Skills Column -->
+          <div class="skills-column glass-panel">
+            <h3 class="column-title"><i class="fa-solid fa-gears"></i> Core Competencies</h3>
+
+            <div class="skill-cards-grid">
+              <div class="skill-mini-card">
+                <div class="sm-icon"><i class="fa-solid fa-people-group"></i></div>
+                <div class="sm-text">
+                  <h4>Teamwork & Leadership</h4>
+                  <p>Guiding workers on the farm and collaborating in academic groups with empathy and mutual respect.</p>
+                </div>
+              </div>
+
+              <div class="skill-mini-card">
+                <div class="sm-icon"><i class="fa-solid fa-sliders"></i></div>
+                <div class="sm-text">
+                  <h4>Adaptability</h4>
+                  <p>Seamlessly transitioning between high-level business theory and physical, real-world farm challenges.</p>
+                </div>
+              </div>
+
+              <div class="skill-mini-card">
+                <div class="sm-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="sm-text">
+                  <h4>Time Management</h4>
+                  <p>Balancing rigorous Master's level studies with daily agricultural commitments and personal growth.</p>
+                </div>
+              </div>
+
+              <div class="skill-mini-card">
+                <div class="sm-icon"><i class="fa-solid fa-chess-knight"></i></div>
+                <div class="sm-text">
+                  <h4>Strategic Decision Making</h4>
+                  <p>Evaluating long-term economic outcomes, risk management, and resource allocation.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: INTERESTS & HOBBIES -->
+    <section class="slide" id="slide-6" data-index="6">
+      <div class="slide-content">
+        <div class="section-header">
+          <span class="section-subtitle">PASSIONS & LIFESTYLE</span>
+          <h2 class="section-title">Interests & <span class="gradient-text">Hobbies</span></h2>
+          <div class="section-bar"></div>
+        </div>
+
+        <div class="interests-grid">
+          <div class="interest-card glass-panel hover-lift">
+            <div class="interest-icon-bg"><i class="fa-solid fa-earth-africa"></i></div>
+            <div class="interest-content">
+              <h3>Traveling & Cultural Exploration</h3>
+              <p>
+                Driven by a deep curiosity for diverse landscapes, heritage, and human perspectives. Traveling enables me to discover local agricultural techniques, architecture, and cultural traditions across Morocco and beyond.
+              </p>
+              <div class="interest-badge"><i class="fa-solid fa-compass"></i> Curiosity</div>
+            </div>
+          </div>
+
+          <div class="interest-card glass-panel hover-lift">
+            <div class="interest-icon-bg"><i class="fa-solid fa-brain"></i></div>
+            <div class="interest-content">
+              <h3>Continuous Language Learning</h3>
+              <p>
+                Languages are gateways to understanding minds and markets. I dedicate my free time to polishing my multilingual mastery, exploring linguistics, reading international publications, and engaging with global cultures.
+              </p>
+              <div class="interest-badge"><i class="fa-solid fa-book"></i> Growth</div>
+            </div>
+          </div>
+
+          <div class="interest-card glass-panel hover-lift">
+            <div class="interest-icon-bg"><i class="fa-solid fa-futbol"></i></div>
+            <div class="interest-content">
+              <h3>Sports: Football & Volleyball</h3>
+              <p>
+                Physical wellness keeps the mind sharp. I am an enthusiastic player of football and volleyball—sports that foster strategic vision, quick decision making under pressure, and vibrant team synergy.
+              </p>
+              <div class="interest-badge"><i class="fa-solid fa-volleyball"></i> Energy & Synergy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: CONTACT & SOCIAL PROFILES -->
+    <section class="slide" id="slide-7" data-index="7">
+      <div class="slide-content">
+        <div class="section-header">
+          <span class="section-subtitle">GET IN TOUCH</span>
+          <h2 class="section-title">Contact & <span class="gradient-text">Connect</span></h2>
+          <div class="section-bar"></div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info-side glass-panel">
+            <h3>Let's Collaborate & Connect</h3>
+            <p class="contact-lead">
+              Whether you wish to discuss business opportunities, agricultural projects, academic exchanges, or simply say hello, feel free to reach out!
+            </p>
+
+            <div class="contact-details">
+              <a href="tel:0693601038" class="contact-item">
+                <div class="ci-icon"><i class="fa-solid fa-phone"></i></div>
+                <div class="ci-text">
+                  <span class="ci-label">Phone & Whatsapp</span>
+                  <span class="ci-val">0693601038</span>
+                </div>
+              </a>
+
+              <a href="mailto:aissaammouri333@gmail.com" class="contact-item">
+                <div class="ci-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="ci-text">
+                  <span class="ci-label">Email Address</span>
+                  <span class="ci-val">aissaammouri333@gmail.com</span>
+                </div>
+              </a>
+
+              <div class="contact-item">
+                <div class="ci-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="ci-text">
+                  <span class="ci-label">Location</span>
+                  <span class="ci-val">Alnif, 52452, Tinghir Province, Drâa-Tafilalet, Morocco</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-links-section">
+              <h4>Follow My Journey</h4>
+              <div class="social-buttons">
+                <a href=" https://www.instagram.com/eissa__ammo" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
+                  <i class="fa-brands fa-instagram"></i>
+                  <span>Aissa's Instagram</span>
+                </a>
+                <a href="https://www.facebook.com/aissa.ammouri.5" target="_blank" rel="noopener noreferrer" class="social-btn facebook">
+                  <i class="fa-brands fa-facebook-f"></i>
+                  <span>Aissa's Facebook</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-side glass-panel">
+            <h3>Send Me a Direct Message</h3>
+            <form action="https://formspree.io/f/xjygggpr" method="POST" id="contact-form" class="contact-form"></form>
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-user"></i>
+                  <input type="text" id="name" name="name" placeholder="John Doe" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Your Email</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-envelope"></i>
+                  <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-pen-nib"></i>
+                  <input type="text" id="subject" name="subject" placeholder="Inquiry / Strategic Collaboration" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <div class="input-wrapper textarea-wrapper">
+                  <i class="fa-solid fa-comment"></i>
+                  <textarea id="message" name="message" rows="4" placeholder="Write your message here..." required></textarea>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary submit-btn">
+                <span>Send Message</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+              <div id="form-feedback" class="form-feedback"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Slide Navigation Controls -->
+  <div class="deck-controls">
+    <button id="prev-slide-btn" class="ctrl-btn" aria-label="Previous Slide"><i class="fa-solid fa-chevron-up"></i></button>
+    <div class="slide-counter"><span id="current-slide-num">01</span> / <span>07</span></div>
+    <button id="next-slide-btn" class="ctrl-btn" aria-label="Next Slide"><i class="fa-solid fa-chevron-down"></i></button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
