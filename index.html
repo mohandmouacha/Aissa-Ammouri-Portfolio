@@ -1,599 +1,1338 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aissa Ammouri | Portfolio & Story</title>
-  <meta name="description" content="Portfolio of Aissa Ammouri - Master's Student in Business Administration, English Graduate, and Modern Farmer from Alnif, Morocco.">
+  <title>Ihmadi - Alnif Earth | Trilobites Center & Geological Expeditions Morocco</title>
+  <meta name="description" content="Discover ancient fossils, deep-time geological excursions, world-renowned trilobites, and authentic Berber hospitality in Alnif, Morocco with host & geologist Mohand.">
   
-  <!-- Fonts -->
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            terracotta: {
+              DEFAULT: '#EA580C',
+              dark: '#C2410C',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="dark-theme">
-  <!-- Interactive Canvas Background -->
-  <canvas id="bg-canvas"></canvas>
+<body class="bg-primary text-main transition-colors duration-300">
 
-  <!-- Navigation Bar -->
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="#slide-1" class="brand-logo" data-slide="1">
-        <span class="logo-badge">AA</span>
-        <span class="logo-text">AISSA<span class="highlight">.</span>AMMOURI</span>
+  <!-- TOP HEADER / NAVIGATION BAR -->
+  <header class="navbar sticky top-0 z-50 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
+      <!-- Logo & Brand Identifier -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="logo-box flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br from-amber-600 to-terracotta text-white shadow-lg group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-gem text-xl"></i>
+        </div>
+        <div class="brand-text">
+          <span class="text-xl font-bold tracking-tight text-heading block leading-none">IHMADI <span class="text-terracotta font-normal">EARTH</span></span>
+          <span class="text-xs uppercase tracking-widest text-muted block font-semibold mt-1">Alnif Trilobites Center</span>
+        </div>
       </a>
 
-      <nav class="nav-links">
-        <a href="#slide-1" class="nav-link active" data-slide="1">Home</a>
-        <a href="#slide-2" class="nav-link" data-slide="2">About</a>
-        <a href="#slide-3" class="nav-link" data-slide="3">Education</a>
-        <a href="#slide-4" class="nav-link" data-slide="4">Agriculture</a>
-        <a href="#slide-5" class="nav-link" data-slide="5">Skills</a>
-        <a href="#slide-6" class="nav-link" data-slide="6">Interests</a>
-        <a href="#slide-7" class="nav-link" data-slide="7">Contact</a>
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-7 font-medium text-sm">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About Mohand</a>
+        <a href="#geology" class="nav-link">Geological Eras</a>
+        <a href="#excursions" class="nav-link">Tours & Fieldwork</a>
+        <a href="#museum" class="nav-link">Museum</a>
+        <a href="#store" class="nav-link">Fossil Store</a>
+        <a href="#testimonials" class="nav-link">Reviews</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
-      <div class="nav-actions">
-        <button id="audio-toggle" class="icon-btn" title="Toggle Ambient Audio Experience" aria-label="Toggle Sound">
-          <i class="fa-solid fa-volume-xmark"></i>
+      <!-- Right Action Controls -->
+      <div class="flex items-center gap-3">
+        <!-- Dark/Light Theme Toggle -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn p-2.5 rounded-full border border-theme transition-all duration-300 hover:border-terracotta" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon text-amber-400 dark:hidden text-lg"></i>
+          <i class="fa-solid fa-sun text-amber-500 hidden dark:block text-lg"></i>
         </button>
-        <button id="mobile-menu-btn" class="icon-btn mobile-only" aria-label="Toggle Navigation Menu">
-          <i class="fa-solid fa-bars"></i>
+
+        <!-- Quick Booking CTA -->
+        <button class="open-booking-modal btn btn-primary hidden sm:flex items-center gap-2">
+          <i class="fa-solid fa-compass"></i>
+          <span>Book Expedition</span>
         </button>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobile-menu-toggle" class="lg:hidden p-2 rounded-lg border border-theme text-heading hover:bg-surface" aria-label="Open Navigation Menu">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobile-drawer" class="mobile-drawer fixed inset-y-0 right-0 w-80 z-50 bg-surface shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 border-l border-theme">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-theme mb-6">
+          <span class="font-bold text-lg text-heading">Menu</span>
+          <button id="mobile-menu-close" class="p-2 text-muted hover:text-heading" aria-label="Close Navigation Menu">
+            <i class="fa-solid fa-xmark text-xl"></i>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 font-medium">
+          <a href="#hero" class="mobile-nav-link text-lg text-heading hover:text-terracotta">Home</a>
+          <a href="#about" class="mobile-nav-link text-lg text-heading hover:text-terracotta">About Mohand</a>
+          <a href="#geology" class="mobile-nav-link text-lg text-heading hover:text-terracotta">Geological Eras</a>
+          <a href="#excursions" class="mobile-nav-link text-lg text-heading hover:text-terracotta">Tours & Excursions</a>
+          <a href="#museum" class="mobile-nav-link text-lg text-heading hover:text-terracotta">Museum Showcase</a>
+          <a href="#store" class="mobile-nav-link text-lg text-heading hover:text-terracotta">Fossil & Mineral Store</a>
+          <a href="#testimonials" class="mobile-nav-link text-lg text-heading hover:text-terracotta">Testimonials</a>
+          <a href="#faq" class="mobile-nav-link text-lg text-heading hover:text-terracotta">FAQs</a>
+          <a href="#contact" class="mobile-nav-link text-lg text-heading hover:text-terracotta">Location & Contact</a>
+        </nav>
+      </div>
+      <div class="pt-6 border-t border-theme">
+        <button class="open-booking-modal btn btn-primary w-full justify-center mb-4">
+          <i class="fa-solid fa-compass"></i>
+          <span>Book an Expedition</span>
+        </button>
+        <div class="flex items-center justify-center gap-4 text-muted">
+          <a href="https://wa.me/212666221593" target="_blank" class="hover:text-terracotta text-xl"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="hover:text-terracotta text-xl"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="hover:text-terracotta text-xl"><i class="fa-brands fa-instagram"></i></a>
+          <a href="mailto:alnifearth@gmail.com" class="hover:text-terracotta text-xl"><i class="fa-solid fa-envelope"></i></a>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Side Dot Indicators -->
-  <div class="slide-indicator" id="slide-indicator">
-    <button class="dot active" data-slide="1" title="Hero / Welcome"><span class="dot-label">01 Hero</span></button>
-    <button class="dot" data-slide="2" title="About & Profile"><span class="dot-label">02 About</span></button>
-    <button class="dot" data-slide="3" title="Education"><span class="dot-label">03 Education</span></button>
-    <button class="dot" data-slide="4" title="Work & Agriculture"><span class="dot-label">04 Agriculture</span></button>
-    <button class="dot" data-slide="5" title="Languages & Skills"><span class="dot-label">05 Skills</span></button>
-    <button class="dot" data-slide="6" title="Interests & Hobbies"><span class="dot-label">06 Interests</span></button>
-    <button class="dot" data-slide="7" title="Contact & Socials"><span class="dot-label">07 Contact</span></button>
-  </div>
+  <main>
+    <!-- SECTION 1: HERO -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden hero-section">
+      <div class="hero-bg-slider absolute inset-0 z-0 pointer-events-none">
+        <img src="images/bg2.jpg" alt="Alnif Geological Desert Landscape" class="hero-slide-img active">
+        <img src="images/bg3.jpg" alt="Fossil Excavation Fieldwork" class="hero-slide-img">
+        <img src="images/bg1.jpg" alt="Devonian Trilobite Specimen" class="hero-slide-img">
+        <div class="hero-overlay absolute inset-0"></div>
+      </div>
 
-  <!-- Slide Deck Container -->
-  <main class="slide-deck" id="slide-deck">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center lg:text-left">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-    <!-- SLIDE 1: HERO -->
-    <section class="slide active" id="slide-1" data-index="1">
-      <div class="slide-content hero-content">
-        <div class="hero-grid">
-          <div class="hero-text-side">
-            <div class="status-badge glowing-border">
-              <span class="status-dot"></span> Open for Opportunities & Agricultural Innovation
+          <div class="lg:col-span-8 space-y-6">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-terracotta/20 border border-terracotta/40 text-terracotta text-xs sm:text-sm font-semibold tracking-wide uppercase backdrop-blur-md">
+              <i class="fa-solid fa-location-dot"></i> Alnif, Drâa-Tafilalet, Morocco • Deep-Time Capital
             </div>
-            <h1 class="hero-name">AISSA <span class="gradient-text">AMMOURI</span></h1>
-            <div class="typing-container">
-              <span class="static-prefix">I am a&nbsp;</span>
-              <span class="typing-text" id="typing-text"></span>
-              <span class="cursor">|</span>
-            </div>
-            <p class="hero-description">
-              Bridging modern business analytics with sustainable agricultural stewardship. A 21-year-old visionary from Alnif, Morocco, synthesizing strategic management, global communication, and deep-rooted agrarian passion.
+
+            <h1 class="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-tight font-serif">
+              Unearth 500 Million Years of <span class="text-gradient-amber">Earth’s History</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-200 max-w-2xl font-light leading-relaxed">
+              Organize your tour with us – Discover the real Morocco where ancient fossils, vibrant Berber cultures, and wild desert landscapes collide under the guidance of local expert geologist <strong>Mohand</strong>.
             </p>
-            <div class="hero-cta-group">
-              <button class="btn btn-primary goto-btn" data-slide="2">
-                <span>Explore My Journey</span>
-                <i class="fa-solid fa-arrow-right"></i>
+
+            <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
+              <button class="open-booking-modal btn btn-primary text-base px-8 py-4">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Plan Your Custom Expedition</span>
               </button>
-              <button class="btn btn-outline goto-btn" data-slide="7">
-                <span>Get In Touch</span>
-                <i class="fa-solid fa-paper-plane"></i>
-              </button>
+              <a href="#store" class="btn btn-outline text-base px-8 py-4 border-white/30 text-white hover:bg-white/10">
+                <i class="fa-solid fa-gem"></i>
+                <span>Explore Fossil Store</span>
+              </a>
             </div>
-            <div class="hero-stats">
-              <div class="stat-card">
-                <span class="stat-number" data-target="500">500+</span>
-                <span class="stat-label">Trees Cultivated</span>
+
+            <div class="grid grid-cols-3 gap-6 pt-8 border-t border-white/10 max-w-xl">
+              <div>
+                <span class="block text-2xl sm:text-3xl font-extrabold text-amber-400">500M+</span>
+                <span class="text-xs text-slate-300 uppercase tracking-wider font-medium">Years of Geology</span>
               </div>
-              <div class="stat-card">
-                <span class="stat-number">4</span>
-                <span class="stat-label">Languages Spoken</span>
+              <div>
+                <span class="block text-2xl sm:text-3xl font-extrabold text-amber-400">100%</span>
+                <span class="text-xs text-slate-300 uppercase tracking-wider font-medium">Authentic Fossils</span>
               </div>
-              <div class="stat-card">
-                <span class="stat-number">2023</span>
-                <span class="stat-label">Graduation Year</span>
+              <div>
+                <span class="block text-2xl sm:text-3xl font-extrabold text-amber-400">20+ Yrs</span>
+                <span class="text-xs text-slate-300 uppercase tracking-wider font-medium">Expert Field Guiding</span>
               </div>
             </div>
           </div>
 
-          <div class="hero-image-side">
-            <div class="profile-card-wrapper">
-              <div class="profile-card-bg-glow"></div>
-              <div class="profile-card">
-                <div class="profile-avatar-container">
-                  <!-- Custom Profile Visual & Image Holder -->
-                  <div class="avatar-frame">
-                    <div class="avatar-glow"></div>
-                    <div class="avatar-inner">
-                     <img src="aissapic.jpeg" alt="Aissa Profile Picture" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
-                      </svg>
-                      <div class="avatar-badge">
-                        <i class="fa-solid fa-leaf"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="profile-details">
-                  <h3 class="profile-title">Aissa Ammouri</h3>
-                  <p class="profile-subtitle"><i class="fa-solid fa-location-dot"></i> Alnif, Drâa-Tafilalet, Morocco</p>
-                  <div class="profile-pills">
-                    <span class="pill"><i class="fa-solid fa-briefcase"></i> M.A. Business Admin</span>
-                    <span class="pill"><i class="fa-solid fa-graduation-cap"></i> B.A. English</span>
-                    <span class="pill"><i class="fa-solid fa-seedling"></i> Modern Farmer</span>
-                  </div>
+          <div class="lg:col-span-4 hidden lg:block">
+            <div class="hero-feature-card glass-panel p-6 rounded-2xl border border-white/20 text-white space-y-4">
+              <div class="relative rounded-xl overflow-hidden shadow-lg h-56">
+                <img src="images/bg1.jpg" alt="Trilobite Center Museum" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
+                  <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Featured Highlight</span>
                 </div>
               </div>
+              <h3 class="text-xl font-bold font-serif">Alnif Earth Museum & Laboratory</h3>
+              <p class="text-sm text-slate-300">
+                Experience precision pneumatic extraction, micro-sandblasting, and rare Devonian trilobite specimens (Phacopida & Dicranurus).
+              </p>
+              <a href="#museum" class="inline-flex items-center gap-2 text-amber-400 font-semibold text-sm hover:underline">
+                <span>Discover Museum</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
             </div>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 2: ABOUT ME & PROFILE -->
-    <section class="slide" id="slide-2" data-index="2">
-      <div class="slide-content">
-        <div class="section-header">
-          <span class="section-subtitle">WHO I AM</span>
-          <h2 class="section-title">About <span class="gradient-text">Aissa Ammouri</span></h2>
-          <div class="section-bar"></div>
-        </div>
+    <!-- SECTION 2: BRAND STORY & MOHAND PROFILE -->
+    <section id="about" class="py-24 bg-surface relative border-b border-theme">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="about-grid">
-          <div class="about-card main-bio-card glass-panel">
-            <div class="card-icon"><i class="fa-solid fa-user-gear"></i></div>
-            <h3>Multifaceted Mindset & Principles</h3>
-            <p class="bio-lead">
-              At 21 years old, I stand at the intersection of strategic corporate management and hands-on agricultural commitment. 
-            </p>
-            <p class="bio-body">
-              Born and raised in Alnif, within the rugged and majestic Drâa-Tafilalet region, my character was forged by the values of order, responsibility, and relentless drive. I believe that true success stems from a harmonized balance: leveraging analytical business models to streamline real-world challenges while remaining grounded in nature and practical craftsmanship.
-            </p>
-            <p class="bio-body">
-              Whether analyzing financial systems for my Master’s degree or optimizing water efficiency and yield across our 500-tree family farm, I bring unwavering structure, methodic organization, and dynamic adaptability to every endeavor.
-            </p>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+          <div class="lg:col-span-5 relative">
+            <div class="relative rounded-3xl overflow-hidden border-4 border-amber-600/20 shadow-2xl group">
+              <img src="images/IMG_20241227_120944.jpg" alt="Mohand - Local Geologist & Paleontological Guide" class="w-full h-[500px] object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Founder & Native Field Geologist</span>
+                <h3 class="text-2xl font-bold font-serif">Mohand</h3>
+                <p class="text-xs text-slate-300">Ihmadi Trilobites Center Host, Alnif</p>
+              </div>
+            </div>
+
+            <div class="absolute -bottom-6 -right-6 bg-terracotta text-white p-6 rounded-2xl shadow-xl hidden sm:block max-w-xs">
+              <i class="fa-solid fa-quote-left text-2xl opacity-50 mb-2 block"></i>
+              <p class="text-xs italic font-medium">"Every rock in Alnif holds a prehistoric message waiting for a passionate eye to read it."</p>
+            </div>
           </div>
 
-          <div class="about-side-grid">
-            <div class="trait-card glass-panel">
-              <div class="trait-icon"><i class="fa-solid fa-bullseye"></i></div>
-              <div class="trait-info">
-                <h4>Orderly & Methodical</h4>
-                <p>Structured problem solver who turns chaos into streamlined execution and actionable workflows.</p>
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 text-terracotta text-xs font-bold tracking-widest uppercase">
+              <i class="fa-solid fa-compass-drafting"></i> Authenticity & Expertise
+            </div>
+
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-heading font-serif leading-tight">
+              Meet Mohand & The <span class="text-terracotta">Ihmadi Legacy</span>
+            </h2>
+
+            <p class="text-base sm:text-lg text-main leading-relaxed">
+              Welcome to <strong>Ihmadi (Alnif Earth)</strong>, the undisputed epicenter of global palaeontology nestled in the arid Anti-Atlas mountain range of southern Morocco. Founded and led by <strong>Mohand</strong>, a lifelong native geologist and field specialist, our center is dedicated to preserving, researching, and sharing the legendary deep-time treasures of Morocco.
+            </p>
+
+            <p class="text-base text-main leading-relaxed">
+              For decades, Mohand has guided international paleontologists, academic researchers, film crews, and curious travelers across the famous Paleozoic and Mesozoic fossil beds of Alnif and the Kem Kem basin. With his unparalleled local knowledge, Mohand transforms every expedition from a simple field tour into an immersive educational journey through deep time, Berber culture, and traditional Saharan hospitality.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+              <div class="p-4 rounded-xl bg-primary border border-theme flex items-start gap-3">
+                <div class="p-2.5 rounded-lg bg-amber-500/10 text-amber-500 mt-1">
+                  <i class="fa-solid fa-hammer text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-heading text-sm">Authentic Fieldwork</h4>
+                  <p class="text-xs text-muted mt-0.5">Hands-on hammer extraction on original prehistoric seabed outcrops.</p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-primary border border-theme flex items-start gap-3">
+                <div class="p-2.5 rounded-lg bg-terracotta/10 text-terracotta mt-1">
+                  <i class="fa-solid fa-microscope text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-heading text-sm">Lab Preparation</h4>
+                  <p class="text-xs text-muted mt-0.5">Learn precision air-scribe cleaning and fossil matrix preservation.</p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-primary border border-theme flex items-start gap-3">
+                <div class="p-2.5 rounded-lg bg-amber-500/10 text-amber-500 mt-1">
+                  <i class="fa-solid fa-campground text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-heading text-sm">Berber Hospitality</h4>
+                  <p class="text-xs text-muted mt-0.5">Traditional home-cooked tagines, Saharan tea, and local kasbah culture.</p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-primary border border-theme flex items-start gap-3">
+                <div class="p-2.5 rounded-lg bg-terracotta/10 text-terracotta mt-1">
+                  <i class="fa-solid fa-certificate text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-heading text-sm">Ethical Sourcing</h4>
+                  <p class="text-xs text-muted mt-0.5">Certified museum-grade specimens exported legally with full provenance.</p>
+                </div>
               </div>
             </div>
 
-            <div class="trait-card glass-panel">
-              <div class="trait-icon"><i class="fa-solid fa-shield-halved"></i></div>
-              <div class="trait-info">
-                <h4>High Responsibility</h4>
-                <p>Committed to stewardship, accountability, and dependable decision-making in high-stakes environments.</p>
-              </div>
+            <div class="pt-4 flex flex-wrap items-center gap-6">
+              <button class="open-booking-modal btn btn-primary">
+                <i class="fa-solid fa-comments"></i>
+                <span>Speak with Mohand</span>
+              </button>
+              <a href="#geology" class="text-terracotta font-bold text-sm hover:underline flex items-center gap-2">
+                <span>Explore Morocco’s Geological Eras</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
             </div>
 
-            <div class="trait-card glass-panel">
-              <div class="trait-icon"><i class="fa-solid fa-chart-line"></i></div>
-              <div class="trait-info">
-                <h4>Growth & Drive</h4>
-                <p>Relentless passion for continuous self-improvement, global perspective, and innovative business strategy.</p>
-              </div>
-            </div>
+          </div>
 
-            <div class="quick-facts-box glass-panel">
-              <h4><i class="fa-solid fa-circle-info"></i> Key Overview</h4>
-              <ul>
-                <li><strong>Age:</strong> 21 Years Old</li>
-                <li><strong>Hometown:</strong> Alnif, Tinghir Province</li>
-                <li><strong>Core Philosophy:</strong> "Tradition feeds the root, innovation grows the tree."</li>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: DEEP-TIME GEOLOGICAL ERAS OF MOROCCO -->
+    <section id="geology" class="py-24 bg-primary relative border-b border-theme">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div class="inline-flex items-center gap-2 text-amber-500 text-xs font-bold tracking-widest uppercase">
+            <i class="fa-solid fa-layer-group"></i> Earth History & Stratigraphy
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-heading font-serif">
+            Morocco’s <span class="text-terracotta">Geological Eras</span>
+          </h2>
+          <p class="text-main text-base sm:text-lg">
+            Southern Morocco is widely recognized by geologists worldwide as an open-air paleontology museum. Explore the four fundamental geological epochs that shaped Alnif and the surrounding regions.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+          <!-- Era 1: Cambrian -->
+          <div class="era-card bg-surface rounded-2xl border border-theme p-6 hover:border-amber-500 transition-all duration-300 flex flex-col justify-between group">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 text-xs font-bold uppercase">541 – 485 Ma</span>
+                <i class="fa-solid fa-water text-2xl text-muted group-hover:text-amber-500 transition-colors"></i>
+              </div>
+              <h3 class="text-2xl font-bold font-serif text-heading">Cambrian Era</h3>
+              <p class="text-xs font-semibold text-terracotta uppercase tracking-wider">The Cambrian Explosion</p>
+              <p class="text-xs text-muted leading-relaxed">
+                Witness the origin of complex ocean life. Moroccan Cambrian strata reveal massive Paradoxides trilobites, primitive echinoderms, and calcified marine mudstones formed along ancient Gondwanan sea margins.
+              </p>
+              <ul class="text-xs text-main space-y-1.5 pt-2 border-t border-theme">
+                <li><strong class="text-heading">• Key Fossils:</strong> Paradoxides, Cambropallas</li>
+                <li><strong class="text-heading">• Site Locations:</strong> Jbel Wawrmast & Alnif Basin</li>
+                <li><strong class="text-heading">• Rock Type:</strong> Green shale & limestone beds</li>
               </ul>
             </div>
+            <div class="mt-6 pt-4 border-t border-theme">
+              <span class="text-xs text-amber-500 font-bold group-hover:underline flex items-center gap-1">
+                <span>View Excursions</span>
+                <i class="fa-solid fa-chevron-right text-xxs"></i>
+              </span>
+            </div>
           </div>
+
+          <!-- Era 2: Ordovician -->
+          <div class="era-card bg-surface rounded-2xl border border-theme p-6 hover:border-amber-500 transition-all duration-300 flex flex-col justify-between group">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 text-xs font-bold uppercase">485 – 443 Ma</span>
+                <i class="fa-solid fa-fish-fins text-2xl text-muted group-hover:text-amber-500 transition-colors"></i>
+              </div>
+              <h3 class="text-2xl font-bold font-serif text-heading">Ordovician Era</h3>
+              <p class="text-xs font-semibold text-terracotta uppercase tracking-wider">Great Marine Diversification</p>
+              <p class="text-xs text-muted leading-relaxed">
+                Famous for soft-bodied preservation in the Fezouata Formation near Zagora and Alnif. Features Flexicalymene, Asaphida trilobites, giant sea scorpions (Eurypterids), and early bryozoans.
+              </p>
+              <ul class="text-xs text-main space-y-1.5 pt-2 border-t border-theme">
+                <li><strong class="text-heading">• Key Fossils:</strong> Flexicalymene, Colpocoryphe</li>
+                <li><strong class="text-heading">• Site Locations:</strong> Zagora & Jbel Tiskaouine</li>
+                <li><strong class="text-heading">• Rock Type:</strong> Fine siltstone & quartzites</li>
+              </ul>
+            </div>
+            <div class="mt-6 pt-4 border-t border-theme">
+              <span class="text-xs text-amber-500 font-bold group-hover:underline flex items-center gap-1">
+                <span>View Excursions</span>
+                <i class="fa-solid fa-chevron-right text-xxs"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Era 3: Devonian -->
+          <div class="era-card bg-surface rounded-2xl border border-theme p-6 hover:border-terracotta transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-terracotta text-white text-[10px] uppercase font-bold px-3 py-1 rounded-bl-lg">
+              Alnif Specialty
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-terracotta/20 text-terracotta text-xs font-bold uppercase">419 – 359 Ma</span>
+                <i class="fa-solid fa-bug text-2xl text-muted group-hover:text-terracotta transition-colors"></i>
+              </div>
+              <h3 class="text-2xl font-bold font-serif text-heading">Devonian Era</h3>
+              <p class="text-xs font-semibold text-terracotta uppercase tracking-wider">Golden Age of Trilobites</p>
+              <p class="text-xs text-muted leading-relaxed">
+                Alnif is world-renowned for Devonian marine reefs. Discover breathtaking spiny trilobites including Dicranurus monster, Walliserops trident, Phacopida, and Scutelluidae preserved in dense limestone matrices.
+              </p>
+              <ul class="text-xs text-main space-y-1.5 pt-2 border-t border-theme">
+                <li><strong class="text-heading">• Key Fossils:</strong> Dicranurus, Walliserops, Phacops</li>
+                <li><strong class="text-heading">• Site Locations:</strong> Hamar Laghdad & Couvinian Beds</li>
+                <li><strong class="text-heading">• Rock Type:</strong> Hard pink & dark limestone</li>
+              </ul>
+            </div>
+            <div class="mt-6 pt-4 border-t border-theme">
+              <span class="text-xs text-terracotta font-bold group-hover:underline flex items-center gap-1">
+                <span>View Excursions</span>
+                <i class="fa-solid fa-chevron-right text-xxs"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Era 4: Cretaceous -->
+          <div class="era-card bg-surface rounded-2xl border border-theme p-6 hover:border-amber-500 transition-all duration-300 flex flex-col justify-between group">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 text-xs font-bold uppercase">145 – 66 Ma</span>
+                <i class="fa-solid fa-dragon text-2xl text-muted group-hover:text-amber-500 transition-colors"></i>
+              </div>
+              <h3 class="text-2xl font-bold font-serif text-heading">Cretaceous Era</h3>
+              <p class="text-xs font-semibold text-terracotta uppercase tracking-wider">The Kem Kem River Beds</p>
+              <p class="text-xs text-muted leading-relaxed">
+                Travel to the famous Kem Kem beds south of Alnif. Unearth dinosaur teeth and bones from <i>Spinosaurus aegyptiacus</i>, <i>Carcharodontosaurus</i>, sawfish <i>Onchopristis</i>, and giant Cretaceous crocodilians.
+              </p>
+              <ul class="text-xs text-main space-y-1.5 pt-2 border-t border-theme">
+                <li><strong class="text-heading">• Key Fossils:</strong> Spinosaurus teeth, Enchodus fish</li>
+                <li><strong class="text-heading">• Site Locations:</strong> Kem Kem Escarpment & Taouz</li>
+                <li><strong class="text-heading">• Rock Type:</strong> Red sandstone & deltaic silt</li>
+              </ul>
+            </div>
+            <div class="mt-6 pt-4 border-t border-theme">
+              <span class="text-xs text-amber-500 font-bold group-hover:underline flex items-center gap-1">
+                <span>View Excursions</span>
+                <i class="fa-solid fa-chevron-right text-xxs"></i>
+              </span>
+            </div>
+          </div>
+
         </div>
+
       </div>
     </section>
 
-    <!-- SLIDE 3: EDUCATION & ACADEMIC BACKGROUND -->
-    <section class="slide" id="slide-3" data-index="3">
-      <div class="slide-content">
-        <div class="section-header">
-          <span class="section-subtitle">ACADEMIC JOURNEY</span>
-          <h2 class="section-title">Education & <span class="gradient-text">Qualifications</span></h2>
-          <div class="section-bar"></div>
+    <!-- SECTION 4: CORE EXPERIENCES & FIELD EXCURSIONS -->
+    <section id="excursions" class="py-24 bg-surface relative border-b border-theme">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div class="inline-flex items-center gap-2 text-terracotta text-xs font-bold tracking-widest uppercase">
+            <i class="fa-solid fa-map"></i> Tailored Field Programs
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-heading font-serif">
+            Guided Tours & <span class="text-terracotta">Expeditions</span>
+          </h2>
+          <p class="text-main text-base sm:text-lg">
+            Choose from immersive single-day field trips to multi-day geological and cultural journeys across the Anti-Atlas mountains and Sahara Desert.
+          </p>
         </div>
 
-        <div class="timeline-container">
-          <div class="timeline-card glass-panel active-step">
-            <div class="timeline-badge"><i class="fa-solid fa-chart-pie"></i></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <span class="timeline-period">Current Enrolment</span>
-                <span class="status-chip active">In Progress</span>
+        <!-- Tour Option Tabs -->
+        <div class="space-y-12">
+
+          <!-- Tour 1: Deep-Time Geological Excursions -->
+          <div class="bg-primary rounded-3xl border border-theme overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12">
+            <div class="lg:col-span-5 relative min-h-[320px]">
+              <img src="images/bg3.jpg" alt="Geological Excavation Expedition" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6 text-white">
+                <div>
+                  <span class="px-3 py-1 rounded-md bg-terracotta text-white font-bold text-xs uppercase">Fieldwork & Excavation</span>
+                  <h3 class="text-2xl font-bold font-serif mt-2">Deep-Time Field Excursions</h3>
+                </div>
               </div>
-              <h3 class="timeline-title">Master's Degree in Business Administration (MBA)</h3>
-              <h4 class="timeline-institution"><i class="fa-solid fa-university"></i> Higher Institute / Faculty of Economics & Management</h4>
-              <p class="timeline-text">
-                Focusing on strategic management, modern corporate governance, financial analysis, operational efficiency, and market expansion. Synthesizing theoretical business frameworks with practical enterprise dynamics and agricultural economics.
-              </p>
-              <div class="tag-cloud">
-                <span>Strategic Management</span>
-                <span>Financial Analysis</span>
-                <span>Agribusiness Strategy</span>
-                <span>Operations Optimization</span>
+            </div>
+
+            <div class="lg:col-span-7 p-6 sm:p-10 space-y-6 flex flex-col justify-between">
+              <div class="space-y-4">
+                <div class="flex flex-wrap gap-4 text-xs font-bold text-muted border-b border-theme pb-4">
+                  <span><i class="fa-solid fa-clock text-amber-500 mr-1"></i> Duration: 1 to 5 Days</span>
+                  <span><i class="fa-solid fa-truck-monster text-amber-500 mr-1"></i> 4x4 Off-Road Transport Included</span>
+                  <span><i class="fa-solid fa-user-shield text-amber-500 mr-1"></i> Beginner to Academic Expert</span>
+                </div>
+
+                <p class="text-main text-sm sm:text-base leading-relaxed">
+                  Join Mohand on direct field trips into the rugged mountains surrounding Alnif. Drive in rugged 4x4 vehicles to remote Devonian limestone beds and Cretaceous sandstone ridges. Hand-crack rock strata using professional rock hammers, locate embedded trilobite fossils, learn stratification reading, and take your findings to the lab for precision cleaning.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div class="p-3 rounded-lg bg-surface border border-theme">
+                    <strong class="text-heading block mb-1"><i class="fa-solid fa-screwdriver-wrench text-terracotta mr-1"></i> Equipment Provided:</strong>
+                    Rock hammers, chisels, protective eyewear, field notebooks, and specimen bags.
+                  </div>
+                  <div class="p-3 rounded-lg bg-surface border border-theme">
+                    <strong class="text-heading block mb-1"><i class="fa-solid fa-suitcase-rolling text-terracotta mr-1"></i> Recommended Packing:</strong>
+                    Sturdy hiking boots, wide-brim hat, sun lotion, field gloves, and lightweight layer clothing.
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-theme flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <span class="text-xs text-muted block">Starting from</span>
+                  <span class="text-2xl font-extrabold text-heading">€120 <span class="text-xs text-muted font-normal">/ day / group</span></span>
+                </div>
+                <button class="open-booking-modal btn btn-primary text-sm px-6 py-3" data-tour="Geological Fieldwork Excursion">
+                  <i class="fa-solid fa-calendar-plus"></i>
+                  <span>Book Field Excursion</span>
+                </button>
               </div>
             </div>
           </div>
 
-          <div class="timeline-card glass-panel">
-            <div class="timeline-badge"><i class="fa-solid fa-book-open-reader"></i></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <span class="timeline-period">Bachelor's Degree</span>
-                <span class="status-chip completed">Completed</span>
+          <!-- Tour 2: Moroccan & Berber Cultural Tours -->
+          <div class="bg-primary rounded-3xl border border-theme overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12">
+            <div class="lg:col-span-5 relative min-h-[320px] lg:order-last">
+              <img src="images/FB_IMG_1712766057743.jpg" alt="Moroccan Cultural & Kasbah Heritage" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6 text-white">
+                <div>
+                  <span class="px-3 py-1 rounded-md bg-amber-600 text-white font-bold text-xs uppercase">Heritage & Local Life</span>
+                  <h3 class="text-2xl font-bold font-serif mt-2">Berber Cultural & Heritage Tours</h3>
+                </div>
               </div>
-              <h3 class="timeline-title">Bachelor's Degree in English Language & Communication</h3>
-              <h4 class="timeline-institution"><i class="fa-solid fa-university"></i> Faculty of Letters & Human Sciences</h4>
-              <p class="timeline-text">
-                Developed C1 Advanced mastery in cross-cultural communication, discourse analysis, professional writing, public speaking, and linguistic analysis. Mastery of English opens doors to global business, international trade, and inter-cultural negotiation.
-              </p>
-              <div class="tag-cloud">
-                <span>Cross-Cultural Communication</span>
-                <span>Linguistic Analysis</span>
-                <span>Professional Writing</span>
-                <span>Public Speaking</span>
+            </div>
+
+            <div class="lg:col-span-7 p-6 sm:p-10 space-y-6 flex flex-col justify-between">
+              <div class="space-y-4">
+                <div class="flex flex-wrap gap-4 text-xs font-bold text-muted border-b border-theme pb-4">
+                  <span><i class="fa-solid fa-clock text-amber-500 mr-1"></i> Duration: Full Day / Multi-Day</span>
+                  <span><i class="fa-solid fa-utensils text-amber-500 mr-1"></i> Traditional Berber Home Meals</span>
+                  <span><i class="fa-solid fa-monument text-amber-500 mr-1"></i> Historical Kasbah Visits</span>
+                </div>
+
+                <p class="text-main text-sm sm:text-base leading-relaxed">
+                  Immerse yourself in authentic Berber tradition across the oasis villages of Drâa-Tafilalet. Visit centuries-old mudbrick Kasbahs, ancient palm groves, local artisan stone carvers, and traditional Berber family households. Enjoy authentic clay-pot tagines cooked over open fires and experience genuine southern Moroccan warmth.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div class="p-3 rounded-lg bg-surface border border-theme">
+                    <strong class="text-heading block mb-1"><i class="fa-solid fa-house-chimney-window text-terracotta mr-1"></i> Authentic Stays:</strong>
+                    Option to stay in traditional guesthouses or kasbah homestays in Alnif.
+                  </div>
+                  <div class="p-3 rounded-lg bg-surface border border-theme">
+                    <strong class="text-heading block mb-1"><i class="fa-solid fa-people-roof text-terracotta mr-1"></i> Community Impact:</strong>
+                    Direct economic contribution to local rural families and artisanal stone sculptors.
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-theme flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <span class="text-xs text-muted block">Starting from</span>
+                  <span class="text-2xl font-extrabold text-heading">€95 <span class="text-xs text-muted font-normal">/ day / group</span></span>
+                </div>
+                <button class="open-booking-modal btn btn-primary text-sm px-6 py-3" data-tour="Berber Cultural Tour">
+                  <i class="fa-solid fa-calendar-plus"></i>
+                  <span>Book Cultural Tour</span>
+                </button>
               </div>
             </div>
           </div>
 
-          <div class="timeline-card glass-panel">
-            <div class="timeline-badge"><i class="fa-solid fa-award"></i></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <span class="timeline-period">2023</span>
-                <span class="status-chip completed">Graduated</span>
+          <!-- Tour 3: Sahara Desert Camping & Stargazing Expeditions -->
+          <div class="bg-primary rounded-3xl border border-theme overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12">
+            <div class="lg:col-span-5 relative min-h-[320px]">
+              <img src="images/bg2.jpg" alt="Sahara Desert Camping Merzouga" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6 text-white">
+                <div>
+                  <span class="px-3 py-1 rounded-md bg-amber-500 text-slate-950 font-bold text-xs uppercase">Sahara Night Experience</span>
+                  <h3 class="text-2xl font-bold font-serif mt-2">Sahara Desert Field Camps</h3>
+                </div>
               </div>
-              <h3 class="timeline-title">High School Baccalaureate Diploma</h3>
-              <h4 class="timeline-institution"><i class="fa-solid fa-school"></i> High School Academy, Tinghir Province</h4>
-              <p class="timeline-text">
-                Graduated with top academic standing in 2023, building a strong foundational knowledge in analytical logic, humanities, mathematics, and critical thinking that set the stage for higher academic pursuits.
-              </p>
-              <div class="tag-cloud">
-                <span>Analytical Thinking</span>
-                <span>Academic Rigor</span>
-                <span>Humanities & Logic</span>
+            </div>
+
+            <div class="lg:col-span-7 p-6 sm:p-10 space-y-6 flex flex-col justify-between">
+              <div class="space-y-4">
+                <div class="flex flex-wrap gap-4 text-xs font-bold text-muted border-b border-theme pb-4">
+                  <span><i class="fa-solid fa-clock text-amber-500 mr-1"></i> Duration: 2 Days / 1 Night (or 3D/2N)</span>
+                  <span><i class="fa-solid fa-moon text-amber-500 mr-1"></i> Unrivaled Stargazing</span>
+                  <span><i class="fa-solid fa-guitar text-amber-500 mr-1"></i> Berber Campfire Music</span>
+                </div>
+
+                <p class="text-main text-sm sm:text-base leading-relaxed">
+                  Combine fossil discovery in the Kem Kem beds with an unforgettable overnight stay under the Sahara desert stars in Erg Chebbi or remote field camps near Alnif. Ride camels across golden dunes, listen to acoustic Berber music around night campfires, and observe pristine, light-pollution-free night skies.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div class="p-3 rounded-lg bg-surface border border-theme">
+                    <strong class="text-heading block mb-1"><i class="fa-solid fa-tent text-terracotta mr-1"></i> Desert Luxury Tents:</strong>
+                    Comfortable beds, private facilities, traditional carpets, and hot water showers.
+                  </div>
+                  <div class="p-3 rounded-lg bg-surface border border-theme">
+                    <strong class="text-heading block mb-1"><i class="fa-solid fa-star text-terracotta mr-1"></i> Astronomy & Night Sky:</strong>
+                    Zero light pollution allows clear viewing of the Milky Way, constellations, and shooting stars.
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-theme flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <span class="text-xs text-muted block">Starting from</span>
+                  <span class="text-2xl font-extrabold text-heading">€180 <span class="text-xs text-muted font-normal">/ person</span></span>
+                </div>
+                <button class="open-booking-modal btn btn-primary text-sm px-6 py-3" data-tour="Sahara Desert Field Camping">
+                  <i class="fa-solid fa-calendar-plus"></i>
+                  <span>Book Desert Camp</span>
+                </button>
               </div>
             </div>
           </div>
+
         </div>
+
       </div>
     </section>
 
-    <!-- SLIDE 4: WORK EXPERIENCE & AGRICULTURE -->
-    <section class="slide" id="slide-4" data-index="4">
-      <div class="slide-content">
-        <div class="section-header">
-          <span class="section-subtitle">HANDS-ON LEADERSHIP</span>
-          <h2 class="section-title">Work Experience & <span class="gradient-text">Modern Agriculture</span></h2>
-          <div class="section-bar"></div>
+    <!-- SECTION 5: PHYSICAL MUSEUM & SHOWCASE -->
+    <section id="museum" class="py-24 bg-primary relative border-b border-theme">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+          <div class="lg:col-span-6 space-y-6">
+            <div class="inline-flex items-center gap-2 text-amber-500 text-xs font-bold tracking-widest uppercase">
+              <i class="fa-solid fa-building-columns"></i> Physical Center & Lab
+            </div>
+
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-heading font-serif leading-tight">
+              Ihmadi Trilobites Center <span class="text-terracotta">(Alnif Earth Museum)</span>
+            </h2>
+
+            <p class="text-main text-base leading-relaxed">
+              Located directly in Alnif, our physical museum showcases hundreds of world-class fossil specimens carefully excavated from the surrounding Paleozoic strata. From delicate, needle-spined Devonian <i>Dicranurus</i> to massive 80cm <i>Paradoxides</i> trilobites and predatory <i>Spinosaurus</i> teeth.
+            </p>
+
+            <div class="space-y-4 pt-2">
+              <div class="flex gap-4 p-4 rounded-xl bg-surface border border-theme">
+                <div class="text-terracotta text-2xl pt-1"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <div>
+                  <h4 class="font-bold text-heading text-base">Interactive Laboratory Viewing</h4>
+                  <p class="text-xs text-muted mt-1 leading-relaxed">
+                    Step into our active cleaning workshop and watch master preparators use pneumatic air scribes and micro-abrasive sandblasters under magnification stereomicroscopes to free delicate fossils from solid rock matrix without damage.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4 p-4 rounded-xl bg-surface border border-theme">
+                <div class="text-amber-500 text-2xl pt-1"><i class="fa-solid fa-hand-holding-hand"></i></div>
+                <div>
+                  <h4 class="font-bold text-heading text-base">Authentic Specimen Handling</h4>
+                  <p class="text-xs text-muted mt-1 leading-relaxed">
+                    Unlike conventional glass-case museums, visitors at Ihmadi are invited to hold genuine 400-million-year-old trilobite carapaces and dinosaur fossils, feeling the exact texture of ancient marine armor and tooth enamel.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 flex flex-wrap items-center gap-4">
+              <a href="#contact" class="btn btn-primary">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>Get Directions to Museum</span>
+              </a>
+              <span class="text-xs text-muted">Open Daily: 9:00 AM – 5:00 PM • Free Entry for Guided Tour Guests</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <div class="rounded-2xl overflow-hidden border border-theme shadow-lg h-56">
+                <img src="images/bg1.jpg" alt="Trilobite Laboratory Cleaning" class="w-full h-full object-cover">
+              </div>
+              <div class="rounded-2xl overflow-hidden border border-theme shadow-lg h-64">
+                <img src="images/IMG_20241227_130054.jpg" alt="Museum Trilobite Specimen" class="w-full h-full object-cover">
+              </div>
+            </div>
+
+            <div class="space-y-4 pt-8">
+              <div class="rounded-2xl overflow-hidden border border-theme shadow-lg h-64">
+                <img src="images/20240829_004304.jpg" alt="Spinosaurus Vertebrate Fossils" class="w-full h-full object-cover">
+              </div>
+              <div class="rounded-2xl overflow-hidden border border-theme shadow-lg h-56">
+                <img src="images/bg4.jpg" alt="Fossil Preparation Tools" class="w-full h-full object-cover">
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <div class="agri-grid">
-          <div class="agri-main-card glass-panel">
-            <div class="agri-header">
-              <div class="agri-icon"><i class="fa-solid fa-tree"></i></div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: FOSSIL & MINERAL STORE (WITH FILTERABLE GALLERY) -->
+    <section id="store" class="py-24 bg-surface relative border-b border-theme">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+          <div class="inline-flex items-center gap-2 text-terracotta text-xs font-bold tracking-widest uppercase">
+            <i class="fa-solid fa-store"></i> Certified Authenticity
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-heading font-serif">
+            Fossil & Mineral <span class="text-terracotta">Store</span>
+          </h2>
+          <p class="text-main text-base sm:text-lg">
+            Acquire museum-grade trilobites, genuine dinosaur teeth, and Moroccan minerals directly from Alnif. Every piece comes with a signed Certificate of Authenticity and worldwide shipping assistance.
+          </p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="flex flex-wrap justify-center gap-2 mb-10" id="gallery-filter-buttons">
+          <button class="gallery-filter-btn active" data-filter="all">All Specimens</button>
+          <button class="gallery-filter-btn" data-filter="devonian">Devonian Trilobites</button>
+          <button class="gallery-filter-btn" data-filter="cretaceous">Cretaceous Dinosaur Fossils</button>
+          <button class="gallery-filter-btn" data-filter="ordovician">Ordovician & Cambrian</button>
+          <button class="gallery-filter-btn" data-filter="minerals">Moroccan Minerals</button>
+        </div>
+
+        <!-- Specimen Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="fossil-gallery-grid">
+
+          <!-- Item 1: Dicranurus monster -->
+          <div class="fossil-card bg-primary rounded-2xl border border-theme overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="devonian">
+            <div class="relative h-56 overflow-hidden">
+              <img src="images/bg1.jpg" alt="Dicranurus monster Trilobite" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-terracotta text-white text-[10px] uppercase font-bold">Devonian Era</span>
+            </div>
+            <div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
               <div>
-                <h3>Family Farm Operations & Maintenance Manager</h3>
-                <span class="agri-location"><i class="fa-solid fa-map-pin"></i> Alnif, Tinghir Province (Drâa-Tafilalet)</span>
+                <span class="text-xs text-muted block">Alnif Limestone Beds</span>
+                <h3 class="text-lg font-bold font-serif text-heading mt-0.5">Dicranurus monster</h3>
+                <p class="text-xs text-muted line-clamp-2 mt-1">Spectacular spiny trilobite featuring double ram-horn head spines. Fully freed from limestone matrix using pneumatic air scribe.</p>
               </div>
-            </div>
-
-            <p class="agri-description">
-              Hands-on management and operational leadership of a prominent family farm cultivating approximately <strong>500 trees</strong> (including date palms, olive trees, and fruit crops adapted to the arid climate of southern Morocco).
-            </p>
-
-            <div class="agri-pillars">
-              <div class="pillar-box">
-                <div class="pillar-icon"><i class="fa-solid fa-droplet"></i></div>
-                <h4>Irrigation & Water Efficiency</h4>
-                <p>Implementing smart drip irrigation and seasonal scheduling to maximize yield while preserving vital water resources in oasis ecosystems.</p>
-              </div>
-
-              <div class="pillar-box">
-                <div class="pillar-icon"><i class="fa-solid fa-handshake-angle"></i></div>
-                <h4>Labour & Harvest Coordination</h4>
-                <p>Leading seasonal harvest teams, organizing tree pruning cycles, soil fertilization, pest control, and yield protection.</p>
-              </div>
-
-              <div class="pillar-box">
-                <div class="pillar-icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
-                <h4>Supply Chain & Market Delivery</h4>
-                <p>Applying business administration concepts to crop inventory, cost optimization, quality selection, and direct regional market distribution.</p>
+              <div class="pt-3 border-t border-theme flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-muted block">Price</span>
+                  <span class="text-base font-extrabold text-amber-500">€420 EUR</span>
+                </div>
+                <button class="open-specimen-modal btn btn-outline text-xs px-3 py-1.5" data-specimen='{"name":"Dicranurus monster","era":"Devonian Era (400 Ma)","location":"Alnif, Morocco","price":"€420","img":"images/bg1.jpg","desc":"Museum-grade Dicranurus monster trilobite featuring double curved horn spines. 100% genuine exoskeleton, carefully excavated and prepared over 40 lab hours without artificial restoration."}'>
+                  View Details
+                </button>
               </div>
             </div>
           </div>
 
-          <div class="agri-side-panel">
-            <div class="quote-card glass-panel">
-              <i class="fa-solid fa-quote-left quote-mark"></i>
-              <p class="quote-text">
-                "Farming in Alnif taught me patience, resilience, and respect for natural cycles. Integrating business strategy into agriculture isn't just about higher profits; it's about sustainable growth and community heritage."
-              </p>
-              <span class="quote-author">— Aissa Ammouri</span>
+          <!-- Item 2: Spinosaurus Teeth -->
+          <div class="fossil-card bg-primary rounded-2xl border border-theme overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="cretaceous">
+            <div class="relative h-56 overflow-hidden">
+              <img src="images/20240829_004304.jpg" alt="Spinosaurus Tooth Fossil" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-amber-600 text-white text-[10px] uppercase font-bold">Cretaceous Era</span>
             </div>
-
-            <div class="stat-highlights glass-panel">
-              <div class="highlight-item">
-                <div class="hl-number">500+</div>
-                <div class="hl-text">Active Trees Managed</div>
+            <div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+              <div>
+                <span class="text-xs text-muted block">Kem Kem Delta Beds</span>
+                <h3 class="text-lg font-bold font-serif text-heading mt-0.5">Spinosaurus Tooth</h3>
+                <p class="text-xs text-muted line-clamp-2 mt-1">Authentic 8cm conical tooth with original dark enamel fluting from the legendary river predator Spinosaurus aegyptiacus.</p>
               </div>
-              <div class="highlight-item">
-                <div class="hl-number">100%</div>
-                <div class="hl-text">Hands-on Commitment</div>
-              </div>
-              <div class="highlight-item">
-                <div class="hl-number">Oasis</div>
-                <div class="hl-text">Sustainable Tech Integration</div>
+              <div class="pt-3 border-t border-theme flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-muted block">Price</span>
+                  <span class="text-base font-extrabold text-amber-500">€190 EUR</span>
+                </div>
+                <button class="open-specimen-modal btn btn-outline text-xs px-3 py-1.5" data-specimen='{"name":"Spinosaurus Tooth","era":"Cretaceous Era (95 Ma)","location":"Kem Kem Beds, Taouz/Alnif","price":"€190","img":"images/20240829_004304.jpg","desc":"Authentic 8.5 cm conical tooth of Spinosaurus aegyptiacus featuring natural feeding wear at tip and original enamel luster. Guaranteed genuine."}'>
+                  View Details
+                </button>
               </div>
             </div>
           </div>
+
+          <!-- Item 3: Walliserops trifurcatus -->
+          <div class="fossil-card bg-primary rounded-2xl border border-theme overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="devonian">
+            <div class="relative h-56 overflow-hidden">
+              <img src="images/IMG_20241227_130054.jpg" alt="Trident Trilobite Walliserops" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-terracotta text-white text-[10px] uppercase font-bold">Devonian Era</span>
+            </div>
+            <div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+              <div>
+                <span class="text-xs text-muted block">Timrhanrhart Formation</span>
+                <h3 class="text-lg font-bold font-serif text-heading mt-0.5">Walliserops trifurcatus</h3>
+                <p class="text-xs text-muted line-clamp-2 mt-1">Famous trident trilobite featuring a unique three-pronged anterior fork structure. Intricate prep work.</p>
+              </div>
+              <div class="pt-3 border-t border-theme flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-muted block">Price</span>
+                  <span class="text-base font-extrabold text-amber-500">€580 EUR</span>
+                </div>
+                <button class="open-specimen-modal btn btn-outline text-xs px-3 py-1.5" data-specimen='{"name":"Walliserops trifurcatus","era":"Devonian Era (390 Ma)","location":"Foum Zguid / Alnif","price":"€580","img":"images/IMG_20241227_130054.jpg","desc":"Rare trident trilobite Walliserops trifurcatus with complete anterior fork, compound holochroal eye lenses intact, and fully elevated thorax."}'>
+                  View Details
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4: Paradoxides Trilobite -->
+          <div class="fossil-card bg-primary rounded-2xl border border-theme overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="ordovician">
+            <div class="relative h-56 overflow-hidden">
+              <img src="images/2012-02-12.jpg" alt="Giant Paradoxides Trilobite" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-amber-500 text-slate-950 text-[10px] uppercase font-bold">Cambrian Era</span>
+            </div>
+            <div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+              <div>
+                <span class="text-xs text-muted block">Jbel Wawrmast Shale</span>
+                <h3 class="text-lg font-bold font-serif text-heading mt-0.5">Giant Paradoxides</h3>
+                <p class="text-xs text-muted line-clamp-2 mt-1">Massive 28cm primitive trilobite in original green shale matrix. Classic specimen from early ocean life explosion.</p>
+              </div>
+              <div class="pt-3 border-t border-theme flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-muted block">Price</span>
+                  <span class="text-base font-extrabold text-amber-500">€310 EUR</span>
+                </div>
+                <button class="open-specimen-modal btn btn-outline text-xs px-3 py-1.5" data-specimen='{"name":"Giant Paradoxides","era":"Cambrian Era (510 Ma)","location":"Jbel Wawrmast, Alnif","price":"€310","img":"images/2012-02-12.jpg","desc":"Massive 28 cm Paradoxides gracilis trilobite in natural green shale split slab. Exceptional pleural spine detail."}'>
+                  View Details
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5: Vanadinite Crystal Cluster -->
+          <div class="fossil-card bg-primary rounded-2xl border border-theme overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="minerals">
+            <div class="relative h-56 overflow-hidden">
+              <img src="images/bg5.jpg" alt="Vanadinite Mineral Crystals" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-rose-600 text-white text-[10px] uppercase font-bold">Moroccan Mineral</span>
+            </div>
+            <div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+              <div>
+                <span class="text-xs text-muted block">Mibladen Mine, Morocco</span>
+                <h3 class="text-lg font-bold font-serif text-heading mt-0.5">Hexagonal Vanadinite</h3>
+                <p class="text-xs text-muted line-clamp-2 mt-1">Brilliant fire-red hexagonal vanadinite crystals sitting on barite matrix. High luster collector cluster.</p>
+              </div>
+              <div class="pt-3 border-t border-theme flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-muted block">Price</span>
+                  <span class="text-base font-extrabold text-amber-500">€145 EUR</span>
+                </div>
+                <button class="open-specimen-modal btn btn-outline text-xs px-3 py-1.5" data-specimen='{"name":"Hexagonal Vanadinite Cluster","era":"Mineral Specimen","location":"Mibladen, Morocco","price":"€145","img":"images/bg5.jpg","desc":"Intense blood-red hexagonal vanadinite crystals up to 1.2 cm on white barite matrix. World class luster."}'>
+                  View Details
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6: Flexicalymene Mortar Slab -->
+          <div class="fossil-card bg-primary rounded-2xl border border-theme overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="ordovician">
+            <div class="relative h-56 overflow-hidden">
+              <img src="images/bg6.jpg" alt="Flexicalymene Trilobite Slab" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-amber-500 text-slate-950 text-[10px] uppercase font-bold">Ordovician Era</span>
+            </div>
+            <div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+              <div>
+                <span class="text-xs text-muted block">Zagora Siltbeds</span>
+                <h3 class="text-lg font-bold font-serif text-heading mt-0.5">Flexicalymene Mortality Slab</h3>
+                <p class="text-xs text-muted line-clamp-2 mt-1">Natural slab containing multiple articulated Flexicalymene trilobites preserved together during ancient storm sediment deposit.</p>
+              </div>
+              <div class="pt-3 border-t border-theme flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-muted block">Price</span>
+                  <span class="text-base font-extrabold text-amber-500">€220 EUR</span>
+                </div>
+                <button class="open-specimen-modal btn btn-outline text-xs px-3 py-1.5" data-specimen='{"name":"Flexicalymene Mortality Slab","era":"Ordovician Era (450 Ma)","location":"Zagora / Alnif, Morocco","price":"€220","img":"images/bg6.jpg","desc":"Multiple Flexicalymene ouzzregi specimens preserved naturally on original siltstone slab. 5 complete specimens."}'>
+                  View Details
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
+
       </div>
     </section>
 
-    <!-- SLIDE 5: LANGUAGES & SKILLS -->
-    <section class="slide" id="slide-5" data-index="5">
-      <div class="slide-content">
-        <div class="section-header">
-          <span class="section-subtitle">CAPABILITIES & FLUENCY</span>
-          <h2 class="section-title">Languages & <span class="gradient-text">Professional Skills</span></h2>
-          <div class="section-bar"></div>
+    <!-- SECTION 7: TESTIMONIALS & REPUTATION -->
+    <section id="testimonials" class="py-24 bg-primary relative border-b border-theme">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div class="inline-flex items-center gap-2 text-amber-500 text-xs font-bold tracking-widest uppercase">
+            <i class="fa-solid fa-star text-amber-400"></i> Guest Reviews & Experience
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-heading font-serif">
+            Voices of Our <span class="text-terracotta">Explorers</span>
+          </h2>
+          <p class="text-main text-base sm:text-lg">
+            Read what international scientists, travelers, and families say about their field trips and fossil discoveries with Mohand in Alnif.
+          </p>
         </div>
 
-        <div class="skills-grid">
-          <!-- Languages Column -->
-          <div class="skills-column glass-panel">
-            <h3 class="column-title"><i class="fa-solid fa-language"></i> Language Fluency</h3>
-            
-            <div class="lang-item">
-              <div class="lang-info">
-                <span class="lang-name">Arabic & Tamazight</span>
-                <span class="lang-level">Native / Mother Tongue</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <!-- Testimonial 1: Rebecca V. (Italy) -->
+          <div class="bg-surface rounded-3xl border border-theme p-8 shadow-lg relative flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="flex text-amber-400 gap-1 text-sm">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <span class="text-xs text-muted font-mono"><i class="fa-solid fa-location-dot text-terracotta mr-1"></i> Italy</span>
               </div>
-              <div class="progress-bar-bg">
-                <div class="progress-bar-fill" style="width: 100%;"></div>
-              </div>
-              <p class="lang-desc">Complete mastery in formal Arabic, regional dialects, and native Amazigh (Tamazight) language and culture.</p>
+
+              <i class="fa-solid fa-quote-left text-3xl text-terracotta/30 block"></i>
+
+              <p class="text-main text-sm sm:text-base leading-relaxed italic">
+                "Exploring the Devonian beds of Alnif with Mohand was the absolute highlight of our Moroccan journey. Mohand isn't just a guide—he is a master geologist who reads the mountains like an open book. We spent hours in the field finding real trilobite fragments, and then went back to his center where he taught us how pneumatic tools are used to cut and clean the fossil matrix. The depth of geological context and warm Berber tea at lunch made it an unforgettable day!"
+              </p>
             </div>
 
-            <div class="lang-item">
-              <div class="lang-info">
-                <span class="lang-name">English</span>
-                <span class="lang-level">C1 Advanced (Degree Holder)</span>
+            <div class="mt-8 pt-6 border-t border-theme flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-terracotta/20 text-terracotta flex items-center justify-center font-bold text-lg">
+                RV
               </div>
-              <div class="progress-bar-bg">
-                <div class="progress-bar-fill" style="width: 90%;"></div>
+              <div>
+                <h4 class="font-bold text-heading text-base">Rebecca V.</h4>
+                <p class="text-xs text-muted">Amateur Paleontologist & Traveler • Rome, Italy</p>
               </div>
-              <p class="lang-desc">Fluent academic, corporate, and conversational communication. Strong editorial and negotiation abilities.</p>
-            </div>
-
-            <div class="lang-item">
-              <div class="lang-info">
-                <span class="lang-name">French</span>
-                <span class="lang-level">B1 Intermediate</span>
-              </div>
-              <div class="progress-bar-bg">
-                <div class="progress-bar-fill" style="width: 65%;"></div>
-              </div>
-              <p class="lang-desc">Solid understanding and working ability for professional, administrative, and economic discussions in Morocco.</p>
             </div>
           </div>
 
-          <!-- Professional Skills Column -->
-          <div class="skills-column glass-panel">
-            <h3 class="column-title"><i class="fa-solid fa-gears"></i> Core Competencies</h3>
-
-            <div class="skill-cards-grid">
-              <div class="skill-mini-card">
-                <div class="sm-icon"><i class="fa-solid fa-people-group"></i></div>
-                <div class="sm-text">
-                  <h4>Teamwork & Leadership</h4>
-                  <p>Guiding workers on the farm and collaborating in academic groups with empathy and mutual respect.</p>
+          <!-- Testimonial 2: Thomas B. (USA) -->
+          <div class="bg-surface rounded-3xl border border-theme p-8 shadow-lg relative flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="flex text-amber-400 gap-1 text-sm">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
                 </div>
+                <span class="text-xs text-muted font-mono"><i class="fa-solid fa-location-dot text-terracotta mr-1"></i> USA</span>
               </div>
 
-              <div class="skill-mini-card">
-                <div class="sm-icon"><i class="fa-solid fa-sliders"></i></div>
-                <div class="sm-text">
-                  <h4>Adaptability</h4>
-                  <p>Seamlessly transitioning between high-level business theory and physical, real-world farm challenges.</p>
-                </div>
-              </div>
+              <i class="fa-solid fa-quote-left text-3xl text-terracotta/30 block"></i>
 
-              <div class="skill-mini-card">
-                <div class="sm-icon"><i class="fa-solid fa-clock"></i></div>
-                <div class="sm-text">
-                  <h4>Time Management</h4>
-                  <p>Balancing rigorous Master's level studies with daily agricultural commitments and personal growth.</p>
-                </div>
-              </div>
+              <p class="text-main text-sm sm:text-base leading-relaxed italic">
+                "I brought my teenage son to southern Morocco specifically to see the Kem Kem dinosaur beds. Mohand organized an exceptional 4x4 expedition into the desert. Finding genuine Spinosaurus teeth and fish scales right in the red sandstone was a dream come true for my son. Mohand’s family hospitality, safety protocols in the desert heat, and genuine passion for earth science are second to none. 100% authentic experience!"
+              </p>
+            </div>
 
-              <div class="skill-mini-card">
-                <div class="sm-icon"><i class="fa-solid fa-chess-knight"></i></div>
-                <div class="sm-text">
-                  <h4>Strategic Decision Making</h4>
-                  <p>Evaluating long-term economic outcomes, risk management, and resource allocation.</p>
-                </div>
+            <div class="mt-8 pt-6 border-t border-theme flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center font-bold text-lg">
+                TB
+              </div>
+              <div>
+                <h4 class="font-bold text-heading text-base">Thomas B.</h4>
+                <p class="text-xs text-muted">Earth Science Educator • Colorado, USA</p>
               </div>
             </div>
           </div>
+
         </div>
+
       </div>
     </section>
 
-    <!-- SLIDE 6: INTERESTS & HOBBIES -->
-    <section class="slide" id="slide-6" data-index="6">
-      <div class="slide-content">
-        <div class="section-header">
-          <span class="section-subtitle">PASSIONS & LIFESTYLE</span>
-          <h2 class="section-title">Interests & <span class="gradient-text">Hobbies</span></h2>
-          <div class="section-bar"></div>
+    <!-- SECTION 8: FREQUENTLY ASKED QUESTIONS -->
+    <section id="faq" class="py-24 bg-surface relative border-b border-theme">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div class="inline-flex items-center gap-2 text-terracotta text-xs font-bold tracking-widest uppercase">
+            <i class="fa-solid fa-circle-question"></i> Everything You Need to Know
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-heading font-serif">
+            Frequently Asked <span class="text-terracotta">Questions</span>
+          </h2>
+          <p class="text-main text-base">
+            Detailed answers regarding tour inclusions, gear, field safety, weather conditions, custom itineraries, and legal fossil transport.
+          </p>
         </div>
 
-        <div class="interests-grid">
-          <div class="interest-card glass-panel hover-lift">
-            <div class="interest-icon-bg"><i class="fa-solid fa-earth-africa"></i></div>
-            <div class="interest-content">
-              <h3>Traveling & Cultural Exploration</h3>
-              <p>
-                Driven by a deep curiosity for diverse landscapes, heritage, and human perspectives. Traveling enables me to discover local agricultural techniques, architecture, and cultural traditions across Morocco and beyond.
-              </p>
-              <div class="interest-badge"><i class="fa-solid fa-compass"></i> Curiosity</div>
+        <div class="space-y-4" id="faq-accordion">
+
+          <!-- FAQ 1 -->
+          <div class="faq-item bg-primary rounded-2xl border border-theme overflow-hidden">
+            <button class="faq-trigger w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-heading text-lg font-serif">
+              <span>What is included in the geological field excursions?</span>
+              <i class="fa-solid fa-chevron-down text-terracotta transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content px-6 pb-6 text-main text-sm leading-relaxed hidden">
+              Our guided field trips include 4x4 off-road transport to fossil beds, an expert guide (Mohand), geological tools (rock hammers, chisels, eye protection), field permits where required, packed drinking water, Berber home-cooked lunch, and laboratory preparation viewing at the Ihmadi Center.
             </div>
           </div>
 
-          <div class="interest-card glass-panel hover-lift">
-            <div class="interest-icon-bg"><i class="fa-solid fa-brain"></i></div>
-            <div class="interest-content">
-              <h3>Continuous Language Learning</h3>
-              <p>
-                Languages are gateways to understanding minds and markets. I dedicate my free time to polishing my multilingual mastery, exploring linguistics, reading international publications, and engaging with global cultures.
-              </p>
-              <div class="interest-badge"><i class="fa-solid fa-book"></i> Growth</div>
+          <!-- FAQ 2 -->
+          <div class="faq-item bg-primary rounded-2xl border border-theme overflow-hidden">
+            <button class="faq-trigger w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-heading text-lg font-serif">
+              <span>What is the best time of year to visit Alnif for field excursions?</span>
+              <i class="fa-solid fa-chevron-down text-terracotta transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content px-6 pb-6 text-main text-sm leading-relaxed hidden">
+              The optimal seasons for field exploration in southern Morocco are Autumn (October to December) and Spring (February to May), when desert temperatures are mild and pleasant (20°C–28°C). Summer months (July–August) can be extremely hot, but early morning field sessions and afternoon laboratory sessions can easily be arranged.
             </div>
           </div>
 
-          <div class="interest-card glass-panel hover-lift">
-            <div class="interest-icon-bg"><i class="fa-solid fa-futbol"></i></div>
-            <div class="interest-content">
-              <h3>Sports: Football & Volleyball</h3>
-              <p>
-                Physical wellness keeps the mind sharp. I am an enthusiastic player of football and volleyball—sports that foster strategic vision, quick decision making under pressure, and vibrant team synergy.
-              </p>
-              <div class="interest-badge"><i class="fa-solid fa-volleyball"></i> Energy & Synergy</div>
+          <!-- FAQ 3 -->
+          <div class="faq-item bg-primary rounded-2xl border border-theme overflow-hidden">
+            <button class="faq-trigger w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-heading text-lg font-serif">
+              <span>Can I legally keep and export fossils I find during the tour?</span>
+              <i class="fa-solid fa-chevron-down text-terracotta transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content px-6 pb-6 text-main text-sm leading-relaxed hidden">
+              Yes, common commercial fossils found during field trips (such as small trilobites, orthoceras, goniatites, and isolated teeth) are legally allowed to be kept by visitors for personal collections. For museum-grade store purchases, Ihmadi Trilobites Center provides official invoices and export Certificates of Authenticity complying with Moroccan mining and trade regulations.
             </div>
           </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item bg-primary rounded-2xl border border-theme overflow-hidden">
+            <button class="faq-trigger w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-heading text-lg font-serif">
+              <span>Are the field excursions suitable for children and non-geologists?</span>
+              <i class="fa-solid fa-chevron-down text-terracotta transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content px-6 pb-6 text-main text-sm leading-relaxed hidden">
+              Absolutely! Mohand tailors the pace and physical difficulty of every excursion to match your group. Families with children love the excitement of breaking open limestone nodules to reveal hidden prehistoric shells, while academic geologists enjoy specialized stratigraphy tours.
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item bg-primary rounded-2xl border border-theme overflow-hidden">
+            <button class="faq-trigger w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-heading text-lg font-serif">
+              <span>How do weather contingencies and sandstorms get handled?</span>
+              <i class="fa-solid fa-chevron-down text-terracotta transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content px-6 pb-6 text-main text-sm leading-relaxed hidden">
+              In the rare event of high desert winds or sandstorms, field trips are adjusted to indoor laboratory preparation masterclasses, Kasbah cultural visits, or rescheduled for optimal weather windows during your stay in Alnif.
+            </div>
+          </div>
+
         </div>
+
       </div>
     </section>
 
-    <!-- SLIDE 7: CONTACT & SOCIAL PROFILES -->
-    <section class="slide" id="slide-7" data-index="7">
-      <div class="slide-content">
-        <div class="section-header">
-          <span class="section-subtitle">GET IN TOUCH</span>
-          <h2 class="section-title">Contact & <span class="gradient-text">Connect</span></h2>
-          <div class="section-bar"></div>
+    <!-- SECTION 9: LOCATION, GOOGLE MAPS EMBED & DIRECT CONTACT FORM -->
+    <section id="contact" class="py-24 bg-primary relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div class="inline-flex items-center gap-2 text-amber-500 text-xs font-bold tracking-widest uppercase">
+            <i class="fa-solid fa-envelope-open-text"></i> Reach Out To Mohand
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-heading font-serif">
+            Visit Us & <span class="text-terracotta">Send a Message</span>
+          </h2>
+          <p class="text-main text-base sm:text-lg">
+            Have questions about custom dates, fossil store orders, or field trip logistics? Send us a direct message or stop by our center in Alnif!
+          </p>
         </div>
 
-        <div class="contact-grid">
-          <div class="contact-info-side glass-panel">
-            <h3>Let's Collaborate & Connect</h3>
-            <p class="contact-lead">
-              Whether you wish to discuss business opportunities, agricultural projects, academic exchanges, or simply say hello, feel free to reach out!
-            </p>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
-            <div class="contact-details">
-              <a href="tel:0693601038" class="contact-item">
-                <div class="ci-icon"><i class="fa-solid fa-phone"></i></div>
-                <div class="ci-text">
-                  <span class="ci-label">Phone & Whatsapp</span>
-                  <span class="ci-val">0693601038</span>
+          <!-- Left Column: Center Info & Embedded Map -->
+          <div class="lg:col-span-5 space-y-8">
+            <div class="bg-surface rounded-3xl border border-theme p-6 sm:p-8 space-y-6 shadow-xl">
+              <h3 class="text-2xl font-bold font-serif text-heading">Alnif Earth Center</h3>
+
+              <div class="space-y-4 text-sm">
+                <div class="flex items-start gap-4">
+                  <div class="p-3 rounded-xl bg-terracotta/10 text-terracotta mt-1">
+                    <i class="fa-solid fa-location-dot text-xl"></i>
+                  </div>
+                  <div>
+                    <strong class="text-heading block">Address:</strong>
+                    <span class="text-muted">Alnif 52452, Drâa-Tafilalet, Morocco</span>
+                  </div>
                 </div>
-              </a>
 
-              <a href="mailto:aissaammouri333@gmail.com" class="contact-item">
-                <div class="ci-icon"><i class="fa-solid fa-envelope"></i></div>
-                <div class="ci-text">
-                  <span class="ci-label">Email Address</span>
-                  <span class="ci-val">aissaammouri333@gmail.com</span>
+                <div class="flex items-start gap-4">
+                  <div class="p-3 rounded-xl bg-amber-500/10 text-amber-500 mt-1">
+                    <i class="fa-solid fa-clock text-xl"></i>
+                  </div>
+                  <div>
+                    <strong class="text-heading block">Hours of Operation:</strong>
+                    <span class="text-muted">Open Daily (9:00 AM – 5:00 PM)</span>
+                  </div>
                 </div>
-              </a>
 
-              <div class="contact-item">
-                <div class="ci-icon"><i class="fa-solid fa-location-dot"></i></div>
-                <div class="ci-text">
-                  <span class="ci-label">Location</span>
-                  <span class="ci-val">Alnif, 52452, Tinghir Province, Drâa-Tafilalet, Morocco</span>
+                <div class="flex items-start gap-4">
+                  <div class="p-3 rounded-xl bg-terracotta/10 text-terracotta mt-1">
+                    <i class="fa-solid fa-phone text-xl"></i>
+                  </div>
+                  <div>
+                    <strong class="text-heading block">Phone & WhatsApp:</strong>
+                    <a href="https://wa.me/212666221593" target="_blank" class="text-terracotta hover:underline font-mono">+212 666-221593</a>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                  <div class="p-3 rounded-xl bg-amber-500/10 text-amber-500 mt-1">
+                    <i class="fa-solid fa-envelope text-xl"></i>
+                  </div>
+                  <div>
+                    <strong class="text-heading block">Email Address:</strong>
+                    <a href="mailto:alnifearth@gmail.com" class="text-terracotta hover:underline font-mono">alnifearth@gmail.com</a>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="social-links-section">
-              <h4>Follow My Journey</h4>
-              <div class="social-buttons">
-                <a href=" https://www.instagram.com/eissa__ammo" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
-                  <i class="fa-brands fa-instagram"></i>
-                  <span>Aissa's Instagram</span>
+              <div class="pt-4 border-t border-theme flex items-center gap-3">
+                <a href="https://maps.app.goo.gl/n7Eq429o33baF9G78" target="_blank" rel="noopener noreferrer" class="btn btn-outline w-full justify-center text-xs py-3">
+                  <i class="fa-solid fa-diamond-turn-right text-terracotta"></i>
+                  <span>Open in Google Maps</span>
                 </a>
-                <a href="https://www.facebook.com/aissa.ammouri.5" target="_blank" rel="noopener noreferrer" class="social-btn facebook">
-                  <i class="fa-brands fa-facebook-f"></i>
-                  <span>Aissa's Facebook</span>
-                </a>
               </div>
+            </div>
+
+            <!-- Embedded Google Map -->
+            <div class="rounded-3xl border border-theme overflow-hidden shadow-xl h-72 relative">
+              <iframe
+                title="Ihmadi Trilobites Center Google Map Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3417.828230558113!2d-5.166667!3d31.116667!2m3!1f0!2f0!3f0!2m3!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDA3JzAwLjAiTiA1wrAwOSc00C4wIlc!5e0!3m2!1sen!2sma!4v1650000000000!5m2!1sen!2sma"
+                width="100%"
+                height="100%"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
             </div>
           </div>
 
-          <div class="contact-form-side glass-panel">
-            <h3>Send Me a Direct Message</h3>
-            <form action="https://formspree.io/f/xjygggpr" method="POST" id="contact-form" class="contact-form"></form>
-              <div class="form-group">
-                <label for="name">Your Name</label>
-                <div class="input-wrapper">
-                  <i class="fa-solid fa-user"></i>
-                  <input type="text" id="name" name="name" placeholder="John Doe" required>
+          <!-- Right Column: Interactive Send a Message Form -->
+          <div class="lg:col-span-7 bg-surface rounded-3xl border border-theme p-8 sm:p-10 shadow-2xl space-y-6">
+            <div>
+              <h3 class="text-2xl font-bold font-serif text-heading">Send a Direct Message</h3>
+              <p class="text-xs text-muted mt-1">Fill out the form below to send your inquiry directly to Mohand & the Alnif Earth team.</p>
+            </div>
+
+            <form action="https://formspree.io/f/xjygggpr" method="POST" id="main-contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label for="contact-name" class="text-xs font-bold text-heading uppercase">Full Name *</label>
+                  <div class="relative">
+                    <i class="fa-solid fa-user absolute left-3.5 top-3.5 text-muted text-xs"></i>
+                    <input type="text" id="contact-name" name="name" required placeholder="e.g. Dr. Sarah Jenkins" class="form-input">
+                  </div>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label for="contact-email" class="text-xs font-bold text-heading uppercase">Email Address *</label>
+                  <div class="relative">
+                    <i class="fa-solid fa-envelope absolute left-3.5 top-3.5 text-muted text-xs"></i>
+                    <input type="email" id="contact-email" name="email" required placeholder="sarah@example.com" class="form-input">
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label for="email">Your Email</label>
-                <div class="input-wrapper">
-                  <i class="fa-solid fa-envelope"></i>
-                  <input type="email" id="email" name="email" placeholder="john@example.com" required>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label for="contact-phone" class="text-xs font-bold text-heading uppercase">Phone / WhatsApp</label>
+                  <div class="relative">
+                    <i class="fa-solid fa-phone absolute left-3.5 top-3.5 text-muted text-xs"></i>
+                    <input type="tel" id="contact-phone" name="phone" placeholder="+1 555-0192" class="form-input">
+                  </div>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label for="contact-subject" class="text-xs font-bold text-heading uppercase">Subject *</label>
+                  <div class="relative">
+                    <i class="fa-solid fa-pen-nib absolute left-3.5 top-3.5 text-muted text-xs"></i>
+                    <select id="contact-subject" name="subject" required class="form-input">
+                      <option value="Geological Tour Inquiry">Geological Field Tour Inquiry</option>
+                      <option value="Fossil Store Purchase">Fossil / Mineral Store Order</option>
+                      <option value="Museum Visit">Museum Visit & Group Booking</option>
+                      <option value="General Question">General Inquiry</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label for="subject">Subject</label>
-                <div class="input-wrapper">
-                  <i class="fa-solid fa-pen-nib"></i>
-                  <input type="text" id="subject" name="subject" placeholder="Inquiry / Strategic Collaboration" required>
+              <div class="space-y-1.5">
+                <label for="contact-message" class="text-xs font-bold text-heading uppercase">Your Message *</label>
+                <div class="relative">
+                  <i class="fa-solid fa-comment absolute left-3.5 top-3.5 text-muted text-xs"></i>
+                  <textarea id="contact-message" name="message" rows="5" required placeholder="Tell us about your desired tour dates, group size, or fossil interest..." class="form-input pl-9 pt-3"></textarea>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label for="message">Message</label>
-                <div class="input-wrapper textarea-wrapper">
-                  <i class="fa-solid fa-comment"></i>
-                  <textarea id="message" name="message" rows="4" placeholder="Write your message here..." required></textarea>
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-primary submit-btn">
+              <button type="submit" id="contact-submit-btn" class="btn btn-primary w-full py-4 justify-center text-base">
                 <span>Send Message</span>
                 <i class="fa-solid fa-paper-plane"></i>
               </button>
-              <div id="form-feedback" class="form-feedback"></div>
+
+              <div id="contact-form-status" class="p-4 rounded-xl hidden text-xs font-semibold text-center"></div>
             </form>
           </div>
+
         </div>
+
       </div>
     </section>
-
   </main>
 
-  <!-- Bottom Slide Navigation Controls -->
-  <div class="deck-controls">
-    <button id="prev-slide-btn" class="ctrl-btn" aria-label="Previous Slide"><i class="fa-solid fa-chevron-up"></i></button>
-    <div class="slide-counter"><span id="current-slide-num">01</span> / <span>07</span></div>
-    <button id="next-slide-btn" class="ctrl-btn" aria-label="Next Slide"><i class="fa-solid fa-chevron-down"></i></button>
+  <!-- FOOTER SECTION WITH THEME TOGGLE AND SOCIALS -->
+  <footer class="bg-surface border-t border-theme py-16 text-main">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
+
+        <div class="lg:col-span-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-600 to-terracotta text-white flex items-center justify-center font-bold">
+              <i class="fa-solid fa-gem"></i>
+            </div>
+            <span class="text-xl font-bold text-heading font-serif">IHMADI • ALNIF EARTH</span>
+          </div>
+          <p class="text-xs text-muted leading-relaxed max-w-sm">
+            Organize your tour with us – Discover the real Morocco where ancient fossils, vibrant cultures, and wild landscapes collide under expert local guidance.
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <a href="https://wa.me/212666221593" target="_blank" class="w-9 h-9 rounded-full bg-primary border border-theme flex items-center justify-center text-muted hover:text-terracotta transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-primary border border-theme flex items-center justify-center text-muted hover:text-terracotta transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-primary border border-theme flex items-center justify-center text-muted hover:text-terracotta transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-primary border border-theme flex items-center justify-center text-muted hover:text-terracotta transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-3 space-y-3">
+          <h4 class="text-sm font-bold text-heading uppercase tracking-wider">Quick Navigation</h4>
+          <ul class="space-y-2 text-xs text-muted">
+            <li><a href="#hero" class="hover:text-terracotta transition-colors">Home Page</a></li>
+            <li><a href="#about" class="hover:text-terracotta transition-colors">About Geologist Mohand</a></li>
+            <li><a href="#geology" class="hover:text-terracotta transition-colors">Morocco's Geological Eras</a></li>
+            <li><a href="#excursions" class="hover:text-terracotta transition-colors">Field Excursions & Packages</a></li>
+            <li><a href="#museum" class="hover:text-terracotta transition-colors">Alnif Earth Museum</a></li>
+            <li><a href="#store" class="hover:text-terracotta transition-colors">Authentic Fossil Store</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-4 space-y-4">
+          <h4 class="text-sm font-bold text-heading uppercase tracking-wider">Theme & Preferences</h4>
+          <p class="text-xs text-muted">Customize your website appearance between rich deep geological mode and sandstone amber light mode.</p>
+
+          <div class="flex items-center gap-3 pt-2">
+            <button id="footer-theme-toggle" class="btn btn-outline text-xs px-4 py-2.5 flex items-center gap-2">
+              <i class="fa-solid fa-circle-half-stroke text-amber-500"></i>
+              <span>Switch Color Theme</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-theme flex flex-col sm:flex-row items-center justify-between text-xs text-muted gap-4">
+        <p>© <span id="current-year">2025</span> Ihmadi (Alnif Earth / Ihmadi Trilobites Center). All rights reserved.</p>
+        <p>Alnif 52452, Drâa-Tafilalet, Morocco • WhatsApp: +212 666-221593</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP ACTION BUTTON -->
+  <a href="https://wa.me/212666221593?text=Hello%20Mohand!%20I%20am%20interested%20in%20organizing%20a%20geological%20fossil%20tour%20in%20Alnif."
+     target="_blank"
+     rel="noopener noreferrer"
+     class="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300"
+     title="Quick Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp text-3xl"></i>
+  </a>
+
+  <!-- INTERACTIVE MODAL 1: EXPEDITION BOOKING DRAWER -->
+  <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 p-4">
+    <div class="bg-surface border border-theme rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button class="close-booking-modal absolute top-6 right-6 text-muted hover:text-heading text-xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div>
+        <span class="text-xs font-bold uppercase text-terracotta">Custom Expedition Inquiry</span>
+        <h3 class="text-2xl font-bold font-serif text-heading mt-1">Book Tour with Mohand</h3>
+        <p class="text-xs text-muted mt-1">Select your desired options and send your booking inquiry.</p>
+      </div>
+
+      <form id="booking-modal-form" class="space-y-4">
+        <div class="space-y-1.5">
+          <label class="text-xs font-bold text-heading uppercase">Selected Experience *</label>
+          <select name="tour_type" id="modal-tour-type" class="form-input" required>
+            <option value="Geological Fieldwork Excursion">Deep-Time Fieldwork Excursion (1-5 Days)</option>
+            <option value="Berber Cultural Tour">Berber Cultural & Heritage Tour</option>
+            <option value="Sahara Desert Field Camping">Sahara Desert Field Camping & Stargazing</option>
+            <option value="Custom Private Expedition">Custom Private Research Expedition</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-heading uppercase">Desired Start Date *</label>
+            <input type="date" name="start_date" required class="form-input">
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-heading uppercase">Number of Guests *</label>
+            <input type="number" min="1" max="20" value="2" name="group_size" required class="form-input">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-heading uppercase">Your Name *</label>
+            <input type="text" name="name" placeholder="John Doe" required class="form-input">
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-heading uppercase">Email Address *</label>
+            <input type="email" name="email" placeholder="john@example.com" required class="form-input">
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="text-xs font-bold text-heading uppercase">Phone / WhatsApp *</label>
+          <input type="tel" name="phone" placeholder="+212 600-000000" required class="form-input">
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="text-xs font-bold text-heading uppercase">Special Requirements / Notes</label>
+          <textarea name="notes" rows="3" placeholder="Dietary needs, equipment preferences, accommodation level..." class="form-input pt-3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full justify-center py-3.5 text-sm">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Submit Booking Request</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE MODAL 2: SPECIMEN DETAIL MODAL -->
+  <div id="specimen-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 p-4">
+    <div class="bg-surface border border-theme rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button id="close-specimen-modal" class="absolute top-6 right-6 text-muted hover:text-heading text-xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+        <div class="rounded-2xl overflow-hidden border border-theme h-64 sm:h-72">
+          <img id="modal-specimen-img" src="" alt="Specimen Detail" class="w-full h-full object-cover">
+        </div>
+        <div class="space-y-3">
+          <span id="modal-specimen-era" class="px-2.5 py-1 rounded-md bg-terracotta text-white text-[10px] font-bold uppercase inline-block"></span>
+          <h3 id="modal-specimen-name" class="text-2xl font-bold font-serif text-heading"></h3>
+          <p id="modal-specimen-location" class="text-xs text-muted font-mono"><i class="fa-solid fa-location-dot text-terracotta mr-1"></i></p>
+          <p id="modal-specimen-desc" class="text-xs text-main leading-relaxed pt-2 border-t border-theme"></p>
+          <div class="pt-3">
+            <span class="text-xs text-muted block">Direct Price</span>
+            <span id="modal-specimen-price" class="text-2xl font-extrabold text-amber-500"></span>
+          </div>
+          <button id="order-specimen-whatsapp" class="btn btn-primary w-full justify-center text-xs py-3 mt-2">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Inquire & Order via WhatsApp</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>

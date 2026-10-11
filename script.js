@@ -1,388 +1,246 @@
-/* ==========================================================================
-   AISSA AMMOURI - PORTFOLIO INTERACTIVITY ENGINE
-   Includes: Full-Page Deck Navigation, Keyboard & Touch Control, Canvas Particles,
-   Dynamic Typewriter Effect, Ambient Audio Synthesizer, & Form Submission
-   ========================================================================== */
-
 document.addEventListener('DOMContentLoaded', () => {
-  /* ------------------------------------------------------------------------
-     1. State Management & Constants
-     ------------------------------------------------------------------------ */
-  let currentSlideIndex = 1;
-  const totalSlides = 7;
-  let isTransitioning = false;
+  // 1. THEME SWITCHER LOGIC (DARK / LIGHT MODE)
+  const htmlEl = document.documentElement;
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const footerThemeToggle = document.getElementById('footer-theme-toggle');
 
-  const slides = document.querySelectorAll('.slide');
-  const navLinks = document.querySelectorAll('.nav-link');
-  const dots = document.querySelectorAll('.slide-indicator .dot');
-  const currentSlideNumEl = document.getElementById('current-slide-num');
-  const prevBtn = document.getElementById('prev-slide-btn');
-  const nextBtn = document.getElementById('next-slide-btn');
-  const gotoBtns = document.querySelectorAll('.goto-btn');
-  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-  const navLinksContainer = document.querySelector('.nav-links');
-
-  /* ------------------------------------------------------------------------
-     2. Slide Switcher Function
-     ------------------------------------------------------------------------ */
-  function goToSlide(targetIndex) {
-    if (targetIndex < 1 || targetIndex > totalSlides || targetIndex === currentSlideIndex || isTransitioning) {
-      return;
-    }
-
-    isTransitioning = true;
-    const previousIndex = currentSlideIndex;
-    currentSlideIndex = targetIndex;
-
-    // Update active slide
-    slides.forEach((slide) => {
-      const idx = parseInt(slide.getAttribute('data-index'), 10);
-      slide.classList.remove('active', 'prev-slide');
-
-      if (idx === currentSlideIndex) {
-        slide.classList.add('active');
-      } else if (idx < currentSlideIndex) {
-        slide.classList.add('prev-slide');
-      }
-    });
-
-    // Update Navigation Links
-    navLinks.forEach((link) => {
-      const slideTarget = parseInt(link.getAttribute('data-slide'), 10);
-      if (slideTarget === currentSlideIndex) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
-    });
-
-    // Update Dots
-    dots.forEach((dot) => {
-      const dotTarget = parseInt(dot.getAttribute('data-slide'), 10);
-      if (dotTarget === currentSlideIndex) {
-        dot.classList.add('active');
-      } else {
-        dot.classList.remove('active');
-      }
-    });
-
-    // Update Slide Counter Number
-    if (currentSlideNumEl) {
-      currentSlideNumEl.textContent = currentSlideIndex < 10 ? `0${currentSlideIndex}` : currentSlideIndex;
-    }
-
-    // Trigger specific slide animations (e.g. progress bars)
-    if (currentSlideIndex === 5) {
-      animateProgressBars();
-    }
-
-    // Reset Mobile Nav if Open
-    if (navLinksContainer.classList.contains('active')) {
-      navLinksContainer.classList.remove('active');
-    }
-
-    setTimeout(() => {
-      isTransitioning = false;
-    }, 700);
-  }
-
-  /* ------------------------------------------------------------------------
-     3. Navigation Event Listeners
-     ------------------------------------------------------------------------ */
-  // Header Nav Links & Brand Logo
-  document.querySelectorAll('[data-slide]').forEach((trigger) => {
-    trigger.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = parseInt(trigger.getAttribute('data-slide'), 10);
-      if (target) goToSlide(target);
-    });
-  });
-
-  // Next / Prev Deck Control Buttons
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      if (currentSlideIndex > 1) goToSlide(currentSlideIndex - 1);
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      if (currentSlideIndex < totalSlides) goToSlide(currentSlideIndex + 1);
-    });
-  }
-
-  // Keyboard Navigation
-  window.addEventListener('keydown', (e) => {
-    if (['ArrowDown', 'PageDown', 'ArrowRight'].includes(e.key)) {
-      if (currentSlideIndex < totalSlides) goToSlide(currentSlideIndex + 1);
-    } else if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(e.key)) {
-      if (currentSlideIndex > 1) goToSlide(currentSlideIndex - 1);
-    }
-  });
-
-  // Mouse Wheel / Trackpad Scroll Navigation
-  let wheelTimeout = null;
-  window.addEventListener('wheel', (e) => {
-    if (isTransitioning) return;
-    if (wheelTimeout) clearTimeout(wheelTimeout);
-
-    wheelTimeout = setTimeout(() => {
-      if (e.deltaY > 30) {
-        if (currentSlideIndex < totalSlides) goToSlide(currentSlideIndex + 1);
-      } else if (e.deltaY < -30) {
-        if (currentSlideIndex > 1) goToSlide(currentSlideIndex - 1);
-      }
-    }, 40);
-  }, { passive: true });
-
-  // Touch / Mobile Swipe Navigation
-  let touchStartY = 0;
-  let touchEndY = 0;
-
-  window.addEventListener('touchstart', (e) => {
-    touchStartY = e.changedTouches[0].screenY;
-  }, { passive: true });
-
-  window.addEventListener('touchend', (e) => {
-    touchEndY = e.changedTouches[0].screenY;
-    handleTouchSwipe();
-  }, { passive: true });
-
-  function handleTouchSwipe() {
-    const swipeDistance = touchStartY - touchEndY;
-    if (Math.abs(swipeDistance) > 50) {
-      if (swipeDistance > 0) {
-        // Swiped UP -> Go to next slide
-        if (currentSlideIndex < totalSlides) goToSlide(currentSlideIndex + 1);
-      } else {
-        // Swiped DOWN -> Go to prev slide
-        if (currentSlideIndex > 1) goToSlide(currentSlideIndex - 1);
-      }
-    }
-  }
-
-  // Mobile Menu Toggle
-  if (mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', () => {
-      navLinksContainer.classList.toggle('active');
-    });
-  }
-
-  /* ------------------------------------------------------------------------
-     4. Typewriter Effect
-     ------------------------------------------------------------------------ */
-  const typingTextEl = document.getElementById('typing-text');
-  const roles = [
-    "Master's Student in Business Admin",
-    "English Language & Comm Graduate",
-    "Modern Agronomist & Farm Manager",
-    "Strategic Problem Solver"
-  ];
-  let roleIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  let typingSpeed = 100;
-
-  function typeEffect() {
-    if (!typingTextEl) return;
-
-    const currentRole = roles[roleIndex];
-
-    if (isDeleting) {
-      typingTextEl.textContent = currentRole.substring(0, charIndex - 1);
-      charIndex--;
-      typingSpeed = 50;
+  function toggleTheme() {
+    if (htmlEl.classList.contains('dark')) {
+      htmlEl.classList.remove('dark');
+      localStorage.setItem('ihmadi_theme', 'light');
     } else {
-      typingTextEl.textContent = currentRole.substring(0, charIndex + 1);
-      charIndex++;
-      typingSpeed = 100;
+      htmlEl.classList.add('dark');
+      localStorage.setItem('ihmadi_theme', 'dark');
     }
-
-    if (!isDeleting && charIndex === currentRole.length) {
-      isDeleting = true;
-      typingSpeed = 2000; // Pause at full word
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      roleIndex = (roleIndex + 1) % roles.length;
-      typingSpeed = 500;
-    }
-
-    setTimeout(typeEffect, typingSpeed);
   }
 
-  typeEffect();
-
-  /* ------------------------------------------------------------------------
-     5. Progress Bar Animation
-     ------------------------------------------------------------------------ */
-  function animateProgressBars() {
-    const fills = document.querySelectorAll('.progress-bar-fill');
-    fills.forEach((fill) => {
-      const targetWidth = fill.style.width;
-      fill.style.width = '0%';
-      setTimeout(() => {
-        fill.style.width = targetWidth;
-      }, 100);
-    });
+  // Load saved theme preference
+  const savedTheme = localStorage.getItem('ihmadi_theme');
+  if (savedTheme === 'light') {
+    htmlEl.classList.remove('dark');
+  } else {
+    htmlEl.classList.add('dark');
   }
 
-  /* ------------------------------------------------------------------------
-     6. Interactive Background Canvas (Ambient Particles)
-     ------------------------------------------------------------------------ */
-  const canvas = document.getElementById('bg-canvas');
-  if (canvas) {
-    const ctx = canvas.getContext('2d');
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+  if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
+  if (footerThemeToggle) footerThemeToggle.addEventListener('click', toggleTheme);
 
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+  // 2. HERO SLIDER AUTOMATION
+  const slideImgs = document.querySelectorAll('.hero-slide-img');
+  let currentSlide = 0;
+
+  if (slideImgs.length > 1) {
+    setInterval(() => {
+      slideImgs[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slideImgs.length;
+      slideImgs[currentSlide].classList.add('active');
+    }, 5000);
+  }
+
+  // 3. MOBILE DRAWER NAVIGATION
+  const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const mobileClose = document.getElementById('mobile-menu-close');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  function openDrawer() {
+    if (mobileDrawer) mobileDrawer.classList.remove('translate-x-full');
+  }
+
+  function closeDrawer() {
+    if (mobileDrawer) mobileDrawer.classList.add('translate-x-full');
+  }
+
+  if (mobileToggle) mobileToggle.addEventListener('click', openDrawer);
+  if (mobileClose) mobileClose.addEventListener('click', closeDrawer);
+  mobileNavLinks.forEach(link => link.addEventListener('click', closeDrawer));
+
+  // 4. FAQ ACCORDION LOGIC
+  const faqTriggers = document.querySelectorAll('.faq-trigger');
+
+  faqTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const content = trigger.nextElementSibling;
+      const icon = trigger.querySelector('i');
+      const isHidden = content.classList.contains('hidden');
+
+      // Close all other FAQs
+      document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+      document.querySelectorAll('.faq-trigger i').forEach(i => i.classList.remove('rotate-180'));
+
+      if (isHidden) {
+        content.classList.remove('hidden');
+        if (icon) icon.classList.add('rotate-180');
+      }
     });
+  });
 
-    const particles = [];
-    const numParticles = Math.min(Math.floor(width / 20), 60);
+  // 5. FOSSIL STORE GALLERY FILTERING
+  const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+  const fossilCards = document.querySelectorAll('.fossil-card');
 
-    for (let i = 0; i < numParticles; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 2 + 1,
-        color: ['rgba(16, 185, 129, ', 'rgba(6, 182, 212, ', 'rgba(99, 102, 241, '][Math.floor(Math.random() * 3)],
-        alpha: Math.random() * 0.5 + 0.2,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4
-      });
-    }
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-    function renderCanvas() {
-      ctx.clearRect(0, 0, width, height);
+      const filterValue = btn.getAttribute('data-filter');
 
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = width;
-        if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height;
-        if (p.y > height) p.y = 0;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `${p.color}${p.alpha})`;
-        ctx.fill();
-
-        // Connect nearby particles
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(16, 185, 129, ${0.12 * (1 - dist / 120)})`;
-            ctx.lineWidth = 0.6;
-            ctx.stroke();
-          }
+      fossilCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        if (filterValue === 'all' || category === filterValue) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
         }
       });
+    });
+  });
 
-      requestAnimationFrame(renderCanvas);
-    }
+  // 6. BOOKING MODAL & DRAWER LOGIC
+  const bookingModal = document.getElementById('booking-modal');
+  const openBookingBtns = document.querySelectorAll('.open-booking-modal');
+  const closeBookingBtns = document.querySelectorAll('.close-booking-modal');
+  const modalTourTypeSelect = document.getElementById('modal-tour-type');
 
-    renderCanvas();
-  }
+  openBookingBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tourPreset = btn.getAttribute('data-tour');
+      if (tourPreset && modalTourTypeSelect) {
+        modalTourTypeSelect.value = tourPreset;
+      }
+      if (bookingModal) {
+        bookingModal.classList.add('modal-active');
+        document.body.classList.add('modal-open');
+      }
+    });
+  });
 
-  /* ------------------------------------------------------------------------
-     7. Ambient Audio Synthesizer Toggle (Web Audio API)
-     ------------------------------------------------------------------------ */
-  const audioBtn = document.getElementById('audio-toggle');
-  let audioCtx = null;
-  let isPlayingAudio = false;
-  let masterGain = null;
-  let osc1 = null;
-  let osc2 = null;
+  closeBookingBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (bookingModal) {
+        bookingModal.classList.remove('modal-active');
+        document.body.classList.remove('modal-open');
+      }
+    });
+  });
 
-  if (audioBtn) {
-    audioBtn.addEventListener('click', () => {
-      if (!isPlayingAudio) {
-        startAmbientSound();
-        audioBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
-        audioBtn.style.color = 'var(--accent-emerald)';
-        audioBtn.style.borderColor = 'var(--accent-emerald)';
-        isPlayingAudio = true;
-      } else {
-        stopAmbientSound();
-        audioBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
-        audioBtn.style.color = '';
-        audioBtn.style.borderColor = '';
-        isPlayingAudio = false;
+  // 7. SPECIMEN DETAIL MODAL LOGIC
+  const specimenModal = document.getElementById('specimen-modal');
+  const openSpecimenBtns = document.querySelectorAll('.open-specimen-modal');
+  const closeSpecimenBtn = document.getElementById('close-specimen-modal');
+  const modalSpecimenImg = document.getElementById('modal-specimen-img');
+  const modalSpecimenName = document.getElementById('modal-specimen-name');
+  const modalSpecimenEra = document.getElementById('modal-specimen-era');
+  const modalSpecimenLocation = document.getElementById('modal-specimen-location');
+  const modalSpecimenDesc = document.getElementById('modal-specimen-desc');
+  const modalSpecimenPrice = document.getElementById('modal-specimen-price');
+  const orderSpecimenWhatsapp = document.getElementById('order-specimen-whatsapp');
+
+  openSpecimenBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const dataRaw = btn.getAttribute('data-specimen');
+      if (!dataRaw) return;
+      const data = JSON.parse(dataRaw);
+
+      if (modalSpecimenImg) modalSpecimenImg.src = data.img;
+      if (modalSpecimenName) modalSpecimenName.textContent = data.name;
+      if (modalSpecimenEra) modalSpecimenEra.textContent = data.era;
+      if (modalSpecimenLocation) modalSpecimenLocation.textContent = data.location;
+      if (modalSpecimenDesc) modalSpecimenDesc.textContent = data.desc;
+      if (modalSpecimenPrice) modalSpecimenPrice.textContent = data.price;
+
+      if (orderSpecimenWhatsapp) {
+        const textMsg = encodeURIComponent(`Hello Mohand! I am interested in purchasing the specimen: ${data.name} (${data.price}) from the Ihmadi fossil store.`);
+        orderSpecimenWhatsapp.onclick = () => {
+          window.open(`https://wa.me/212666221593?text=${textMsg}`, '_blank');
+        };
+      }
+
+      if (specimenModal) {
+        specimenModal.classList.add('modal-active');
+        document.body.classList.add('modal-open');
+      }
+    });
+  });
+
+  if (closeSpecimenBtn) {
+    closeSpecimenBtn.addEventListener('click', () => {
+      if (specimenModal) {
+        specimenModal.classList.remove('modal-active');
+        document.body.classList.remove('modal-open');
       }
     });
   }
 
-  function startAmbientSound() {
-    try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContext();
+  // 8. INTERACTIVE MAIN CONTACT FORM ("Send a message")
+  const mainContactForm = document.getElementById('main-contact-form');
+  const contactStatus = document.getElementById('contact-form-status');
+  const contactSubmitBtn = document.getElementById('contact-submit-btn');
 
-      masterGain = audioCtx.createGain();
-      masterGain.gain.setValueAtTime(0.05, audioCtx.currentTime); // Low background volume
-      masterGain.connect(audioCtx.destination);
-
-      // Relaxing warm chord frequencies
-      osc1 = audioCtx.createOscillator();
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(110, audioCtx.currentTime); // A2
-
-      osc2 = audioCtx.createOscillator();
-      osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(164.81, audioCtx.currentTime); // E3
-
-      osc1.connect(masterGain);
-      osc2.connect(masterGain);
-
-      osc1.start();
-      osc2.start();
-    } catch (err) {
-      console.log('Web Audio API not supported or blocked');
-    }
-  }
-
-  function stopAmbientSound() {
-    if (masterGain && audioCtx) {
-      masterGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
-      setTimeout(() => {
-        if (audioCtx) audioCtx.close();
-      }, 500);
-    }
-  }
-
-  /* ------------------------------------------------------------------------
-     8. Contact Form Handler
-     ------------------------------------------------------------------------ */
-  const contactForm = document.getElementById('contact-form');
-  const formFeedback = document.getElementById('form-feedback');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+  if (mainContactForm) {
+    mainContactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const name = document.getElementById('name').value;
-
-      if (formFeedback) {
-        formFeedback.className = 'form-feedback success';
-        formFeedback.textContent = `Thank you, ${name}! Your message has been sent successfully. Aissa will get back to you soon.`;
+      if (contactSubmitBtn) {
+        contactSubmitBtn.disabled = true;
+        contactSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending Message...';
       }
 
-      contactForm.reset();
+      try {
+        const formData = new FormData(mainContactForm);
+        const response = await fetch(mainContactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
 
-      setTimeout(() => {
-        if (formFeedback) formFeedback.textContent = '';
-      }, 6000);
+        if (response.ok) {
+          if (contactStatus) {
+            contactStatus.classList.remove('hidden', 'bg-rose-500/20', 'text-rose-400');
+            contactStatus.classList.add('bg-emerald-500/20', 'text-emerald-400', 'block');
+            contactStatus.textContent = 'Thank you! Your message has been successfully sent to Mohand. We will respond shortly via email or WhatsApp.';
+          }
+          mainContactForm.reset();
+        } else {
+          throw new Error('Form submission failed.');
+        }
+      } catch (err) {
+        if (contactStatus) {
+          contactStatus.classList.remove('hidden', 'bg-emerald-500/20', 'text-emerald-400');
+          contactStatus.classList.add('bg-rose-500/20', 'text-rose-400', 'block');
+          contactStatus.textContent = 'Oops! There was a network issue submitting the form. Please click the WhatsApp button to message Mohand directly (+212 666-221593).';
+        }
+      } finally {
+        if (contactSubmitBtn) {
+          contactSubmitBtn.disabled = false;
+          contactSubmitBtn.innerHTML = '<span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>';
+        }
+      }
     });
   }
+
+  // 9. BOOKING MODAL FORM HANDLER
+  const bookingModalForm = document.getElementById('booking-modal-form');
+  if (bookingModalForm) {
+    bookingModalForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = bookingModalForm.querySelector('button[type="submit"]');
+      if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+
+      setTimeout(() => {
+        alert('Thank you! Your expedition request has been sent to Mohand. We will contact you on WhatsApp/Email within 24 hours to confirm your dates.');
+        bookingModalForm.reset();
+        if (bookingModal) bookingModal.classList.remove('modal-active');
+        document.body.classList.remove('modal-open');
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Submit Booking Request</span>';
+      }, 1000);
+    });
+  }
+
+  // Set current year in footer
+  const currentYearSpan = document.getElementById('current-year');
+  if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
 });
